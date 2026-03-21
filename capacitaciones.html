@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capacitaciones Fairy Agency</title>
+<style>
+body { margin:0; font-family:'Georgia',serif; background:#0a0a0a; color:#eaeaea; }
+.pagina { max-width:900px; margin:40px auto; padding:30px; background:#111; border-radius:12px; position:relative; }
+.logo { position:absolute; top:20px; left:20px; width:80px; filter:drop-shadow(0 0 8px rgba(255,215,0,0.3)); }
+h1 { color:gold; text-align:center; margin-bottom:20px; font-size:32px; padding-top:40px; }
+.tab-container { display:flex; margin-bottom:20px; }
+.tab { flex:1; padding:15px; text-align:center; font-size:18px; cursor:pointer; border-bottom:3px solid #333; }
+.tab.active { border-bottom:3px solid gold; color:gold; font-weight:bold; }
+.content { display:none; }
+.content.active { display:block; }
+.subtab-container { display:flex; margin:15px 0; background:#1a1a1a; border-radius:8px; padding:5px; }
+.subtab { flex:1; padding:12px; text-align:center; cursor:pointer; border-radius:6px; }
+.subtab.active { background:#222; color:gold; font-weight:bold; }
+.link-item { background:#222; padding:15px; margin:10px 0; border-radius:8px; }
+.link-item a { color:gold; text-decoration:none; font-weight:bold; }
+.calculadora { background:#1a1a1a; padding:20px; border-radius:12px; margin:20px 0; text-align:center; }
+select { padding:12px; font-size:16px; background:#222; color:white; border:none; border-radius:8px; width:100%; max-width:300px; }
+#hora { font-size:28px; font-weight:bold; color:gold; margin:15px 0; }
+</style>
+</head>
+
+<body>
+
+<section class="pagina">
+  <img src="https://i.postimg.cc/xjw9VDpV/1774069732194.png" class="logo" alt="Fairy Agency">
+
+  <h1>Capacitaciones para Salsa - Fairy Agency</h1>
+  <p style="text-align:center; color:#aaa;">Actualizado cada semana • Solo para streamers de la agencia</p>
+
+  <!-- CALCULADORA HORARIA -->
+  <div class="calculadora">
+    <h2 style="color:gold;">🕒 Calculadora horaria</h2>
+    <p>Selecciona tu país para ver la hora de la capacitación en tu zona horaria</p>
+    
+    <select id="pais" onchange="calcularHora()">
+      <option value="America/Caracas">Venezuela</option>
+      <option value="America/Mexico_City">México</option>
+      <option value="America/Costa_Rica">Costa Rica</option>
+      <option value="America/Havana">Cuba</option>
+      <option value="America/El_Salvador">El Salvador</option>
+      <option value="America/Guatemala">Guatemala</option>
+      <option value="America/Tegucigalpa">Honduras</option>
+      <option value="America/Managua">Nicaragua</option>
+      <option value="America/Panama">Panamá</option>
+      <option value="America/Argentina/Buenos_Aires">Argentina</option>
+      <option value="America/La_Paz">Bolivia</option>
+      <option value="America/Sao_Paulo">Brasil</option>
+      <option value="America/Santiago">Chile</option>
+      <option value="America/Guayaquil">Ecuador</option>
+      <option value="America/Asuncion">Paraguay</option>
+      <option value="America/Lima">Perú</option>
+      <option value="America/Santo_Domingo">República Dominicana</option>
+      <option value="America/Montevideo">Uruguay</option>
+      <option value="America/New_York">Estados Unidos (Este)</option>
+      <option value="America/Chicago">Estados Unidos (Centro)</option>
+      <option value="America/Denver">Estados Unidos (Montaña)</option>
+      <option value="America/Phoenix">Estados Unidos (Arizona)</option>
+      <option value="America/Los_Angeles">Estados Unidos (Pacífico)</option>
+      <option value="America/Anchorage">Estados Unidos (Alaska)</option>
+      <option value="Pacific/Honolulu">Estados Unidos (Hawaii)</option>
+      <option value="Europe/Madrid">España</option>
+    </select>
+
+    <div id="hora">Cargando hora...</div>
+    <small style="color:#888;">Hora en Colombia: <span id="horaColombia"></span></small>
+  </div>
+
+  <!-- PESTAÑAS -->
+  <div class="tab-container">
+    <div class="tab active" onclick="openTab(0)">Meet</div>
+    <div class="tab" onclick="openTab(1)">YouTube</div>
+    <div class="tab" onclick="openTab(2)">Grabadas</div>
+  </div>
+
+  <!-- TAB MEET -->
+  <div id="tab0" class="content active">
+    <h2 style="color:gold;">🔴 Sesiones por Meet (esta semana)</h2>
+    <div class="link-item">
+      • Miércoles 18 de marzo - 4:00 PM (hora Colombia)<br>
+      <a href="https://meet.google.com/tyg-qyct-hbj" target="_blank">🔗 Entrar al Meet</a>
+    </div>
+  </div>
+
+  <!-- TAB YOUTUBE -->
+  <div id="tab1" class="content">
+    <h2 style="color:gold;">▶️ Sesiones por YouTube (esta semana)</h2>
+    <div class="link-item">• Aún no hay sesiones por YouTube esta semana</div>
+  </div>
+
+  <!-- TAB GRABADAS -->
+  <div id="tab2" class="content">
+    <h2 style="color:gold;">📼 Capacitaciones Grabadas</h2>
+    <div class="subtab-container">
+      <div class="subtab active" onclick="openSubTab(0)">Meet Grabadas</div>
+      <div class="subtab" onclick="openSubTab(1)">YouTube Grabadas</div>
+    </div>
+
+    <div id="subtab0" class="content active">
+      <p style="color:#aaa; text-align:center;">Aún no hay grabaciones de Meet</p>
+    </div>
+
+    <div id="subtab1" class="content">
+      <div class="link-item">1. Bienvenida al mundo Salsa 💋<br><a href="https://www.youtube.com/live/LMH_0PFb0js?si=69E3M8RjoePGSLMV" target="_blank">🔗 Ver</a></div>
+      <div class="link-item">2. ¿Nueva en Salsa? Así activas tu cuenta<br><a href="https://www.youtube.com/live/3bc5nVBUbOo?si=ScfmuJTBrCVduMPs" target="_blank">🔗 Ver</a></div>
+      <div class="link-item">3. ¿Lista para brillar en Salsa?<br><a href="https://www.youtube.com/live/LYvvu6Sw1zw?si=2ebkxEPqtYHJamdH" target="_blank">🔗 Ver</a></div>
+      <div class="link-item">4. Métodos de pago en Salsa<br><a href="https://www.youtube.com/live/nuEnJCT9MT4?si=JmFyTqy344cFCybM" target="_blank">🔗 Ver</a></div>
+      <div class="link-item">5. Como optimizar mi perfil en Salsa app<br><a href="https://www.youtube.com/live/eQNokkjNXK0?si=oWVCTsrAp5-F7A7m" target="_blank">🔗 Ver</a></div>
+      <div class="link-item">6. Como obtener buenas calificaciones<br><a href="https://www.youtube.com/live/Rz_2AQBHVa4?si=QgeXzeLgA3YU8AW3" target="_blank">🔗 Ver</a></div>
+      <div class="link-item">7. Cómo vender una experiencia inolvidable<br><a href="https://www.youtube.com/live/y2X2HBlfWvo?si=XXIaCq2PQPMMEayI" target="_blank">🔗 Ver</a></div>
+      <div class="link-item">8. CONVERTIR UN MATCH EN LLAMADA PRIVADA<br><a href="https://www.youtube.com/live/FwfqyON3Yrw?si=XENNW36X8-syIGuh" target="_blank">🔗 Ver</a></div>
+      <div class="link-item">9. CÓMO PERDER EL MIEDO A LAS TRANSMISIONES<br><a href="https://www.youtube.com/live/3Qx0lYfl-ic?si=v8PcF5zsfPenipVJ" target="_blank">🔗 Ver</a></div>
+      <div class="link-item">10. Como cautivar a tus usuarios!<br><a href="https://www.youtube.com/live/M4FAJjh4mAg?si=mwuAfKDM3yFNHMS3" target="_blank">🔗 Ver</a></div>
+      <div class="link-item">11. Seduce, Conoce y Gana Más<br><a href="https://www.youtube.com/live/sdaxtuLsZ_U?si=QcyptWOT_cF4GVvq" target="_blank">🔗 Ver</a></div>
+      <div class="link-item">12. Estrategias para interactuar con la audiencia<br><a href="https://www.youtube.com/live/CvW5WDb5-ZA?si=69YTyZD231unpQ5H" target="_blank">🔗 Ver</a></div>
+      <div class="link-item">13. Como mejorar tu tono de voz y lenguaje corporal<br><a href="https://www.youtube.com/live/xolrmcWZKZU?si=xD04tjXnWxI2Xcyh" target="_blank">🔗 Ver</a></div>
+      <div class="link-item">14. Aprende a como conectar de verdad con tu usuario<br><a href="https://www.youtube.com/live/RdLM0Nba-4E?si=MFlc7OxvoVwlpB6e" target="_blank">🔗 Ver</a></div>
+      <div class="link-item">15. Como vender una experiencia inolvidable<br><a href="https://www.youtube.com/live/eGS8SdzX3GA?si=-yWzdbTJemui_QQ2" target="_blank">🔗 Ver</a></div>
+      <div class="link-item">16. Aprende a hacer un live avanzado con Kelly Moreno<br><a href="https://www.youtube.com/live/7zuikm3lPxA?si=wx5YylKCd-KCyGB-" target="_blank">🔗 Ver</a></div>
+      <div class="link-item">17. Como manejar usuarios problemáticos o incomodos<br><a href="https://www.youtube.com/live/FtT8366nX68?si=bpU2nvJnG3U7sFS0" target="_blank">🔗 Ver</a></div>
+      <div class="link-item">18. Cómo recuperar tu poder cuando te sientes insegura<br><a href="https://www.youtube.com/live/OQ6m7vAJxX8?si=rP7MgrJTvQKhiXOP" target="_blank">🔗 Ver</a></div>
+      <div class="link-item">19. Lenguaje corporal avanzado para seducir sin mostrar de más<br><a href="https://www.youtube.com/live/pl8tnpB5r8g?si=3WiOESCi-fkzk_fs" target="_blank">🔗 Ver</a></div>
+      <div class="link-item">20. Seducción, persuasión y conquista<br><a href="https://www.youtube.com/live/2HQxbzXqYTM?si=bTQgWUdhISvXEuHI" target="_blank">🔗 Ver</a></div>
+      <div class="link-item">21. Show sin filtro y más sensuales<br><a href="https://www.youtube.com/live/MzF1MFu8c1U?si=icyRd-Avys9S8aAe" target="_blank">🔗 Ver</a></div>
+      <div class="link-item">22. SALSA ACADEMY- invitada especial (Kelly Moreno)<br><a href="https://www.youtube.com/live/uzqAFJd_BMg?si=R4DsOxILPDWK2kcJ" target="_blank">🔗 Ver</a></div>
+      <div class="link-item">23. Cómo hacer que tus lives atrapen desde el primer segundo<br><a href="https://www.youtube.com/live/zf7ifZlqxrQ?si=x04637Nkl00jli3m" target="_blank">🔗 Ver</a></div>
+      <div class="link-item">24. Genera sin agotarte: protege tu vibra mientras brillas<br><a href="https://www.youtube.com/live/xYfqJYu7Acc?si=qZS-onhOaFA9W-Z8" target="_blank">🔗 Ver</a></div>
+      <div class="link-item">25. ¿Vale la pena o solo quiere jugar?<br><a href="https://www.youtube.com/live/9teztVItqVw?si=obkDkcw-VIu2QMbn" target="_blank">🔗 Ver</a></div>
+    </div>
+  </div>
+</section>
+
+<script>
+function openTab(n) {
+  document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab'+n).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+
+function openSubTab(n) {
+  document.querySelectorAll('#tab2 .content').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.subtab').forEach(t => t.classList.remove('active'));
+  document.getElementById('subtab'+n).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+
+function calcularHora() {
+  const zona = document.getElementById('pais').value;
+  const ahora = new Date();
+  const horaCol = ahora.toLocaleTimeString('es-CO', {timeZone: 'America/Bogota', hour:'numeric', minute:'2-digit', hour12:true});
+  document.getElementById('horaColombia').textContent = horaCol;
+  const horaLocal = ahora.toLocaleTimeString('es-CO', {timeZone: zona, hour:'numeric', minute:'2-digit', hour12:true});
+  document.getElementById('hora').textContent = horaLocal;
+}
+calcularHora();
+setInterval(calcularHora, 60000);
+</script>
+
+</body>
+</html>
