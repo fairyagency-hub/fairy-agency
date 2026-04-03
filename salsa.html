@@ -1,4 +1,3 @@
-<!-- salsa.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -9,218 +8,165 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
-body { 
-  margin:0; 
-  font-family:'Georgia',serif; 
-  background:#0a0a0a; 
-  color:#eaeaea; 
+body { margin:0; font-family:'Georgia',serif; background:#0a0a0a; color:#eaeaea; }
+
+/* MENU */
+.menu-btn {
+  position:absolute;
+  top:30px;
+  left:25px;
+  font-size:26px;
+  color:#ffd700;
+  z-index:10001;
+  cursor:pointer;
 }
 
-/* HEADER */
-.header {
+.sidebar {
+  position:fixed;
+  top:0;
+  left:-260px;
+  width:260px;
+  height:100%;
+  background:#0b0b0b;
+  padding-top:90px;
+  transition:0.3s;
+  z-index:10000;
+}
+
+.sidebar.active { left:0; }
+
+.menu-item {
   display:flex;
   align-items:center;
-  gap:12px;
-  position:absolute;
-  top:25px;
-  left:20px;
-  z-index:2001;
+  gap:15px;
+  padding:18px 25px;
+  color:#ddd;
+  text-decoration:none;
+  font-size:18px;
 }
 
-.menu-btn {
-  font-size:24px;
-  color:#ffd700;
-  cursor:pointer;
+.menu-item i { color:#ffd700; }
+
+/* CONTENIDO */
+.pagina {
+  max-width:960px;
+  margin:40px auto;
+  padding:30px;
+  background:#111;
+  border-radius:16px;
+  position:relative;
 }
 
 .logo {
   width:85px;
+  display:block;
+  margin:0 auto 10px;
 }
 
-/* SIDEBAR */
-.sidebar {
-  position:fixed;
-  top:0;
-  left:0;
-  width:260px;
-  height:100%;
-  background:#111;
-  padding:100px 18px 20px;
-  transform:translateX(-100%);
-  transition:0.3s ease;
-  z-index:2000;
-  box-shadow:5px 0 20px rgba(0,0,0,0.5);
-}
-
-.sidebar.active {
-  transform:translateX(0);
-}
-
-.sidebar a {
-  display:flex;
-  align-items:center;
-  gap:16px;
-  color:#eaeaea;
-  text-decoration:none;
-  padding:16px 14px;
-  margin:12px 0;
-  border-radius:10px;
-  font-size:17px;
-}
-
-.sidebar a:hover {
-  background:#222;
-  color:#ffd700;
-}
-
-.sidebar i {
-  font-size:18px;
-  width:22px;
+h1 {
   text-align:center;
   color:#ffd700;
-}
-
-/* OVERLAY */
-.overlay {
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.7);
-  opacity:0;
-  visibility:hidden;
-  transition:0.3s;
-  z-index:1500;
-}
-
-.overlay.active {
-  opacity:1;
-  visibility:visible;
-}
-
-/* CONTENEDOR */
-.pagina { 
-  max-width:960px; 
-  margin:40px auto; 
-  padding:30px; 
-  background:#111; 
-  border-radius:16px; 
-  position:relative;
-}
-
-/* TITULO */
-h1 { 
-  color:#ffd700; 
-  text-align:center; 
-  font-size:32px; 
-  margin:100px 0 8px;
+  margin-top:10px;
 }
 
 .sub {
-  text-align:center; 
+  text-align:center;
   color:#aaa;
 }
 
 /* GRID */
-.grid { 
-  display:grid; 
-  grid-template-columns: repeat(2, 1fr); 
-  gap:18px; 
-  margin-top:30px; 
+.grid {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
+  margin-top:30px;
 }
 
-/* CARDS */
-.card { 
-  background:#1a1a1a; 
-  border-radius:16px; 
-  text-align:center; 
-  text-decoration:none; 
+.card {
+  background:#1a1a1a;
+  padding:30px;
+  border-radius:16px;
+  text-align:center;
+  text-decoration:none;
   color:#eaeaea;
-  border:2px solid #333;
-
-  display:flex; 
-  flex-direction:column; 
-  align-items:center; 
-  justify-content:center;
-
-  height:280px;
-  gap:12px;
   transition:0.3s;
+  border:2px solid #333;
 }
 
-.card:hover { 
-  background:#222; 
-  transform:scale(1.04); 
-  border-color:#ffd700; 
+.card:hover {
+  background:#222;
+  transform:scale(1.04);
+  border-color:#ffd700;
 }
 
-.card i { 
-  font-size:64px; 
-  color:#ffd700; 
+.card i {
+  font-size:50px;
+  color:#ffd700;
+  margin-bottom:10px;
 }
 
-.card span {
-  font-size:18px;
-}
-
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  .pagina { margin:20px; padding:20px; }
-}
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
-<div class="header">
-  <div class="menu-btn" onclick="toggleMenu()">
-    <i class="fa-solid fa-bars"></i>
-  </div>
-
-  <img src="https://i.postimg.cc/fLhtVJy2/1774069732194.png" class="logo">
+<!-- MENU -->
+<div class="menu-btn" onclick="toggleMenu()">
+  <i class="fa-solid fa-bars"></i>
 </div>
 
-<!-- SIDEBAR -->
-<div class="sidebar" id="sidebar">
-  <a href="zona-streamer.html"><i class="fa-solid fa-house"></i>Inicio</a>
-  <a href="fairy-academy.html"><i class="fa-solid fa-graduation-cap"></i>Fairy Academy</a>
-  <a href="salsa.html"><i class="fa-solid fa-fire"></i>SALSA</a>
-  <a href="reportes-salsa.html"><i class="fa-solid fa-chart-column"></i>Reportes</a>
-  <a href="binance-streamer.html"><i class="fa-solid fa-bitcoin-sign"></i>Binance</a>
-  <a href="noticias.html"><i class="fa-solid fa-newspaper"></i>Noticias</a>
-  <a href="reglamento-interno.html"><i class="fa-solid fa-file-contract"></i>Reglamento</a>
-</div>
+<div class="sidebar" id="menu">
+  <a href="zona-streamer.html" class="menu-item">
+    <i class="fa-solid fa-house"></i>Inicio
+  </a>
 
-<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+  <a href="fairy-academy.html" class="menu-item">
+    <i class="fa-solid fa-graduation-cap"></i>Fairy Academy
+  </a>
+
+  <a href="salsa.html" class="menu-item">
+    <i class="fa-solid fa-fire"></i>SALSA
+  </a>
+
+  <a href="capacitaciones-salsa.html" class="menu-item">
+    <i class="fa-solid fa-video"></i>Capacitaciones
+  </a>
+
+  <a href="reportes-salsa.html" class="menu-item">
+    <i class="fa-solid fa-chart-column"></i>Reportes
+  </a>
+
+  <a href="binance-streamer.html" class="menu-item">
+    <i class="fa-solid fa-bitcoin-sign"></i>Binance
+  </a>
+
+  <a href="noticias.html" class="menu-item">
+    <i class="fa-solid fa-newspaper"></i>Noticias
+  </a>
+
+  <a href="reglamento-interno.html" class="menu-item">
+    <i class="fa-solid fa-file-contract"></i>Reglamento
+  </a>
+</div>
 
 <!-- CONTENIDO -->
 <section class="pagina">
 
+  <img src="https://i.postimg.cc/fLhtVJy2/1774069732194.png" class="logo">
+
   <h1>SALSA</h1>
-  <p class="sub">Panel exclusivo para streamers SALSA</p>
+  <p class="sub">Centro de herramientas y crecimiento</p>
 
   <div class="grid">
 
     <a href="capacitaciones-salsa.html" class="card">
-      <i class="fa-solid fa-book-open"></i>
-      <span>Capacitaciones</span>
+      <i class="fa-solid fa-video"></i>
+      <div>Capacitaciones</div>
     </a>
 
-    <a href="tutoriales-salsa.html" class="card">
-      <i class="fa-solid fa-circle-play"></i>
-      <span>Tutoriales</span>
-    </a>
-
-    <a href="reglas-salsa.html" class="card">
-      <i class="fa-solid fa-scroll"></i>
-      <span>Reglas SALSA</span>
-    </a>
-
-    <a href="herramientas-salsa.html" class="card">
+    <a href="#" class="card">
       <i class="fa-solid fa-screwdriver-wrench"></i>
-      <span>Herramientas SALSA</span>
+      <div>Herramientas SALSA</div>
     </a>
 
   </div>
@@ -229,218 +175,7 @@ h1 {
 
 <script>
 function toggleMenu() {
-  document.getElementById("sidebar").classList.toggle("active");
-  document.getElementById("overlay").classList.toggle("active");
-}
-</script>
-
-</body>
-</html>  width:85px;
-}
-
-/* SIDEBAR */
-.sidebar {
-  position:fixed;
-  top:0;
-  left:0;
-  width:260px;
-  height:100%;
-  background:#111;
-  padding:100px 18px 20px;
-  transform:translateX(-100%);
-  transition:0.3s ease;
-  z-index:2000;
-  box-shadow:5px 0 20px rgba(0,0,0,0.5);
-}
-
-.sidebar.active {
-  transform:translateX(0);
-}
-
-.sidebar a {
-  display:flex;
-  align-items:center;
-  gap:16px;
-  color:#eaeaea;
-  text-decoration:none;
-  padding:16px 14px;
-  margin:12px 0;
-  border-radius:10px;
-  font-size:17px;
-}
-
-.sidebar a:hover {
-  background:#222;
-  color:#ffd700;
-}
-
-.sidebar i {
-  font-size:18px;
-  width:22px;
-  text-align:center;
-  color:#ffd700;
-}
-
-/* OVERLAY */
-.overlay {
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.7);
-  opacity:0;
-  visibility:hidden;
-  transition:0.3s;
-  z-index:1500;
-}
-
-.overlay.active {
-  opacity:1;
-  visibility:visible;
-}
-
-/* CONTENEDOR */
-.pagina { 
-  max-width:960px; 
-  margin:40px auto; 
-  padding:30px; 
-  background:#111; 
-  border-radius:16px; 
-  position:relative;
-}
-
-/* TITULO */
-h1 { 
-  color:#ffd700; 
-  text-align:center; 
-  font-size:32px; 
-  margin:100px 0 8px;
-}
-
-.sub {
-  text-align:center; 
-  color:#aaa;
-}
-
-/* GRID */
-.grid { 
-  display:grid; 
-  grid-template-columns: repeat(2, 1fr); 
-  gap:18px; 
-  margin-top:30px; 
-}
-
-/* CARDS */
-.card { 
-  background:#1a1a1a; 
-  border-radius:16px; 
-  text-align:center; 
-  text-decoration:none; 
-  color:#eaeaea;
-  border:2px solid #333;
-
-  display:flex; 
-  flex-direction:column; 
-  align-items:center; 
-  justify-content:center;
-
-  height:280px;
-  gap:12px;
-  transition:0.3s;
-}
-
-.card:hover { 
-  background:#222; 
-  transform:scale(1.04); 
-  border-color:#ffd700; 
-}
-
-.card i { 
-  font-size:64px; 
-  color:#ffd700; 
-}
-
-/* S ESPECIAL */
-.salsa-s {
-  font-size:48px;
-  font-weight:900;
-  transform:scaleX(1.1);
-  color:#ffd700;
-  text-shadow:0 0 6px rgba(255,215,0,0.25);
-}
-
-.card span {
-  font-size:18px;
-}
-
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  .pagina { margin:20px; padding:20px; }
-}
-</style>
-</head>
-
-<body>
-
-<!-- HEADER -->
-<div class="header">
-  <div class="menu-btn" onclick="toggleMenu()">
-    <i class="fa-solid fa-bars"></i>
-  </div>
-
-  <img src="https://i.postimg.cc/fLhtVJy2/1774069732194.png" class="logo">
-</div>
-
-<!-- SIDEBAR -->
-<div class="sidebar" id="sidebar">
-  <a href="zona-streamer.html"><i class="fa-solid fa-house"></i>Inicio</a>
-  <a href="fairy-academy.html"><i class="fa-solid fa-graduation-cap"></i>Fairy Academy</a>
-  <a href="salsa.html"><i class="fa-solid fa-fire"></i>SALSA</a>
-  <a href="reportes-salsa.html"><i class="fa-solid fa-chart-column"></i>Reportes</a>
-  <a href="binance-streamer.html"><i class="fa-solid fa-bitcoin-sign"></i>Binance</a>
-  <a href="noticias.html"><i class="fa-solid fa-newspaper"></i>Noticias</a>
-  <a href="reglamento-interno.html"><i class="fa-solid fa-file-contract"></i>Reglamento</a>
-</div>
-
-<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
-
-<!-- CONTENIDO -->
-<section class="pagina">
-
-  <h1>SALSA</h1>
-  <p class="sub">Panel exclusivo para streamers SALSA</p>
-
-  <div class="grid">
-
-    <a href="capacitaciones.html" class="card">
-      <i class="fa-solid fa-book-open"></i>
-      <span>Capacitaciones</span>
-    </a>
-
-    <a href="tutoriales-salsa.html" class="card">
-      <i class="fa-solid fa-circle-play"></i>
-      <span>Tutoriales</span>
-    </a>
-
-    <a href="reglas-salsa.html" class="card">
-      <i class="fa-solid fa-scroll"></i>
-      <span>Reglas SALSA</span>
-    </a>
-
-    <a href="tips-fairy.html" class="card">
-      <span class="salsa-s">S</span>
-      <span>Tips Pro</span>
-    </a>
-
-  </div>
-
-</section>
-
-<script>
-function toggleMenu() {
-  document.getElementById("sidebar").classList.toggle("active");
-  document.getElementById("overlay").classList.toggle("active");
+  document.getElementById("menu").classList.toggle("active");
 }
 </script>
 
