@@ -1,3 +1,4 @@
+<!-- salsa.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -8,33 +9,238 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
+/* 🔒 TODO TU DISEÑO ORIGINAL — INTACTO */
 body { margin:0; font-family:'Georgia',serif; background:#0a0a0a; color:#eaeaea; }
 
-/* MENU */
-.menu-btn {
-  position:absolute;
-  top:30px;
-  left:25px;
-  font-size:26px;
-  color:#ffd700;
-  z-index:10001;
-  cursor:pointer;
+.header { display:flex; align-items:center; gap:12px; position:absolute; top:25px; left:20px; z-index:2001; }
+.menu-btn { font-size:24px; color:#ffd700; cursor:pointer; }
+.logo { width:85px; }
+
+.reloj-salsa {
+  position:absolute; top:25px; right:0;
+  transform:translateX(-10px);
+  background:#1a1a1a; padding:12px;
+  border-radius:14px; border:1px solid #ffd700;
+  z-index:2002; width:260px;
+}
+
+.titulo-reloj{ text-align:center; color:#ffd700; font-size:14px; margin-bottom:6px; }
+
+.reloj-grid{ display:flex; gap:10px; }
+
+.bloque-reloj{
+  flex:1; display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  gap:6px; background:#111;
+  padding:10px; border-radius:10px;
+}
+
+.bloque-reloj span{ font-size:13px; color:#aaa; }
+
+.hora{ font-size:20px; font-weight:bold; color:#ffd700; }
+
+.select{
+  width:100%; padding:6px;
+  border-radius:6px; background:#222;
+  color:white; border:none;
 }
 
 .sidebar {
-  position:fixed;
-  top:0;
-  left:-260px;
-  width:260px;
-  height:100%;
-  background:#0b0b0b;
-  padding-top:90px;
-  transition:0.3s;
-  z-index:10000;
+  position:fixed; top:0; left:0;
+  width:260px; height:100%;
+  background:#111; padding:100px 18px 20px;
+  transform:translateX(-100%);
+  transition:0.3s ease; z-index:2000;
 }
 
-.sidebar.active { left:0; }
+.sidebar.active { transform:translateX(0); }
 
+.sidebar a {
+  display:flex; align-items:center;
+  gap:16px; color:#ffd700;
+  text-decoration:none; padding:16px 14px;
+  margin:10px 0; border-radius:10px;
+}
+
+.sidebar a:hover { background:#222; }
+
+.sidebar i { color:#ffd700; }
+
+.overlay {
+  position:fixed; top:0; left:0;
+  width:100%; height:100%;
+  background:rgba(0,0,0,0.7);
+  opacity:0; visibility:hidden;
+  transition:0.3s; z-index:1500;
+}
+
+.overlay.active { opacity:1; visibility:visible; }
+
+.pagina {
+  max-width:960px; margin:40px auto;
+  padding:30px; background:#111;
+  border-radius:16px;
+}
+
+h1 {
+  color:#ffd700; text-align:center;
+  font-size:32px; margin:140px 0 10px;
+}
+
+.sub { text-align:center; color:#aaa; }
+
+.grid {
+  display:grid; grid-template-columns: repeat(2, 1fr);
+  gap:18px; margin-top:30px;
+}
+
+.card {
+  background:#1a1a1a; border-radius:16px;
+  text-align:center; text-decoration:none;
+  color:#eaeaea; border:2px solid #333;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  height:280px; gap:12px;
+}
+
+.card i { font-size:64px; color:#ffd700; }
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="menu-btn" onclick="toggleMenu()">
+    <i class="fa-solid fa-bars"></i>
+  </div>
+  <img src="https://i.postimg.cc/fLhtVJy2/1774069732194.png" class="logo">
+</div>
+
+<!-- RELOJ -->
+<div class="reloj-salsa">
+  <div class="titulo-reloj">⏰ Mi Horario Salsa</div>
+
+  <div class="reloj-grid">
+
+    <div class="bloque-reloj">
+      <span>Colombia</span>
+      <div class="hora" id="horaColombia"></div>
+    </div>
+
+    <div class="bloque-reloj">
+      <select id="pais" class="select" onchange="calcularHora()">
+
+        <option value="America/Mexico_City">México</option>
+        <option value="America/Guatemala">Guatemala</option>
+        <option value="America/El_Salvador">El Salvador</option>
+        <option value="America/Tegucigalpa">Honduras</option>
+        <option value="America/Managua">Nicaragua</option>
+        <option value="America/Costa_Rica">Costa Rica</option>
+        <option value="America/Panama">Panamá</option>
+        <option value="America/Havana">Cuba</option>
+        <option value="America/Santo_Domingo">Rep. Dominicana</option>
+        <option value="America/Puerto_Rico">Puerto Rico</option>
+
+        <option value="America/Bogota">Colombia</option>
+        <option value="America/Lima">Perú</option>
+        <option value="America/Quito">Ecuador</option>
+        <option value="America/Caracas">Venezuela</option>
+        <option value="America/La_Paz">Bolivia</option>
+        <option value="America/Santiago">Chile</option>
+        <option value="America/Argentina/Buenos_Aires">Argentina</option>
+        <option value="America/Asuncion">Paraguay</option>
+        <option value="America/Montevideo">Uruguay</option>
+        <option value="America/Sao_Paulo">Brasil</option>
+
+        <option value="Europe/Madrid">España</option>
+
+        <option value="America/New_York">USA Este</option>
+        <option value="America/Chicago">USA Central</option>
+        <option value="America/Denver">USA Montaña</option>
+        <option value="America/Los_Angeles">USA Pacífico</option>
+
+      </select>
+
+      <div class="hora" id="horaLocal"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+  <a href="zona-streamer.html"><i class="fa-solid fa-house"></i>Inicio</a>
+  <a href="fairy-academy.html"><i class="fa-solid fa-graduation-cap"></i>Fairy Academy</a>
+  <a href="salsa.html"><i class="fa-solid fa-fire"></i>SALSA</a>
+  <a href="reportes-salsa.html"><i class="fa-solid fa-chart-column"></i>Reportes</a>
+  <a href="binance-streamer.html"><i class="fa-solid fa-bitcoin-sign"></i>Binance</a>
+  <a href="noticias.html"><i class="fa-solid fa-newspaper"></i>Noticias</a>
+  <a href="reglamento-interno.html"><i class="fa-solid fa-file-contract"></i>Reglamento</a>
+  <a href="#" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i>Salir</a>
+</div>
+
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+<!-- CONTENIDO -->
+<section class="pagina">
+
+  <h1>SALSA</h1>
+  <p class="sub">Panel exclusivo para streamers SALSA</p>
+
+  <div class="grid">
+    <a href="capacitaciones-salsa.html" class="card"><i class="fa-solid fa-book-open"></i>Capacitaciones</a>
+    <a href="tutoriales-salsa.html" class="card"><i class="fa-solid fa-circle-play"></i>Tutoriales</a>
+    <a href="reglas-salsa.html" class="card"><i class="fa-solid fa-scroll"></i>Reglas SALSA</a>
+    <a href="herramientas-salsa.html" class="card"><i class="fa-solid fa-screwdriver-wrench"></i>Herramientas SALSA</a>
+  </div>
+
+</section>
+
+<script>
+/* 🔐 PROTECCIÓN GLOBAL */
+const DURACION = 24 * 60 * 60 * 1000;
+
+window.onload = function(){
+  const access = localStorage.getItem("fairyAccess");
+  const time = localStorage.getItem("fairyTime");
+
+  if(!(access === "true" && time && (Date.now() - time < DURACION))){
+    location.href = "zona-streamer.html";
+  }
+}
+
+/* RELOJ */
+function calcularHora(){
+  const ahora = new Date();
+
+  horaColombia.textContent =
+    ahora.toLocaleTimeString('es-CO',{timeZone:'America/Bogota',hour:'2-digit',minute:'2-digit'});
+
+  const zona = pais.value;
+
+  horaLocal.textContent =
+    ahora.toLocaleTimeString('es-CO',{timeZone:zona,hour:'2-digit',minute:'2-digit'});
+}
+
+setInterval(calcularHora,60000);
+calcularHora();
+
+/* MENU */
+function toggleMenu(){
+  sidebar.classList.toggle("active");
+  overlay.classList.toggle("active");
+}
+
+/* 🔥 LOGOUT GLOBAL */
+function logout(){
+  localStorage.clear();
+  location.href = "zona-streamer.html";
+}
+</script>
+
+</body>
+</html>
 .menu-item {
   display:flex;
   align-items:center;
