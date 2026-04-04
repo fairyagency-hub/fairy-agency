@@ -20,8 +20,8 @@ body {
   display:flex;
   align-items:center;
   gap:12px;
-  position:absolute;
-  top:25px;
+  position:fixed;
+  top:20px;
   left:20px;
   z-index:2001;
 }
@@ -32,7 +32,10 @@ body {
   cursor:pointer;
 }
 
-.logo { width:85px; }
+.logo-header { 
+  width:85px; 
+  filter: brightness(1.15); 
+}
 
 /* SIDEBAR */
 .sidebar {
@@ -42,13 +45,22 @@ body {
   width:260px;
   height:100%;
   background:#111;
-  padding:100px 18px 20px;
+  padding:90px 18px 20px;
   transform:translateX(-100%);
   transition:0.3s ease;
   z-index:3000;
+  box-shadow:5px 0 20px rgba(0,0,0,0.5);
 }
 
 .sidebar.active { transform:translateX(0); }
+
+/* Logo menú */
+.logo-menu {
+  width:140px;
+  display:block;
+  margin:0 auto 30px;
+  filter: brightness(1.15);
+}
 
 .menu-item {
   display:flex;
@@ -70,8 +82,11 @@ body {
 .menu-left i { color:#ffd700; }
 
 .salsa-s {
-  color:#ffd700;
-  font-weight:bold;
+  color:#ffd700 !important;
+  font-size:24px;
+  font-weight:900;
+  width:24px;
+  text-align:center;
 }
 
 /* SUBMENU */
@@ -84,7 +99,7 @@ body {
 
 .submenu a {
   display:block;
-  padding:6px 0;
+  padding:8px 0;
   color:#ccc;
   text-decoration:none;
 }
@@ -108,7 +123,7 @@ body {
   visibility:visible;
 }
 
-/* MODAL PASSWORD */
+/* MODAL */
 #passwordModal {
   position:fixed; 
   top:0; left:0; 
@@ -129,7 +144,11 @@ body {
   width:90%;
 }
 
-.modal-content img { width:180px; margin-bottom:25px; }
+.modal-content img { 
+  width:180px; 
+  margin-bottom:25px; 
+  filter: brightness(1.15);
+}
 
 h2 { color:#ffd700; margin-bottom:15px; }
 
@@ -154,7 +173,7 @@ h2 { color:#ffd700; margin-bottom:15px; }
   cursor:pointer;
 }
 
-/* RELOJ PEQUEÑO */
+/* RELOJ */
 .reloj-salsa {
   position:absolute;
   top:25px;
@@ -165,7 +184,6 @@ h2 { color:#ffd700; margin-bottom:15px; }
   border:1px solid #ffd700;
   z-index:2002;
   font-size:13px;
-  max-width:170px;
 }
 
 .titulo-reloj { 
@@ -175,15 +193,9 @@ h2 { color:#ffd700; margin-bottom:15px; }
   margin-bottom:4px; 
 }
 
-.reloj-grid { 
-  display:flex; 
-  gap:8px; 
-}
+.reloj-grid { display:flex; gap:8px; }
 
-.bloque-reloj {
-  flex:1;
-  text-align:center;
-}
+.bloque-reloj { flex:1; text-align:center; }
 
 .hora { 
   font-size:15px; 
@@ -217,13 +229,10 @@ h1 {
   color:#ffd700;
   text-align:center;
   font-size:32px;
-  margin:140px 0 10px;
+  margin-top:120px;
 }
 
-.sub { 
-  text-align:center; 
-  color:#aaa; 
-}
+.sub { text-align:center; color:#aaa; }
 
 /* GRID */
 .grid {
@@ -249,7 +258,10 @@ h1 {
   transition:0.2s;
 }
 
-.card:hover { border-color:#ffd700; }
+.card:hover { 
+  border-color:#ffd700; 
+  transform:scale(1.05);
+}
 
 .card i {
   font-size:48px;
@@ -265,11 +277,13 @@ h1 {
   <div class="menu-btn" onclick="toggleMenu()">
     <i class="fa-solid fa-bars"></i>
   </div>
-  <img src="https://i.postimg.cc/fLhtVJy2/1774069732194.png" class="logo">
+  <img src="https://i.postimg.cc/fLhtVJy2/1774069732194.png" class="logo-header">
 </div>
 
 <!-- SIDEBAR -->
 <div class="sidebar" id="sidebar">
+
+  <img src="https://i.postimg.cc/fLhtVJy2/1774069732194.png" class="logo-menu">
 
   <div class="menu-item" onclick="toggleSub('inicio')">
     <div class="menu-left">
@@ -279,6 +293,7 @@ h1 {
   </div>
 
   <div class="submenu" id="inicio">
+    <a href="zona-streamer.html">Zona Streamer</a>
     <a href="fairy-academy.html">Fairy Academy</a>
     <a href="salsa.html">SALSA</a>
     <a href="reportes-salsa.html">Reportes</a>
@@ -314,7 +329,7 @@ h1 {
     <a href="herramientas-salsa.html">Herramientas</a>
   </div>
 
-  <div class="menu-item logout" onclick="logout()">
+  <div class="menu-item logout" onclick="logout()" style="color:#ff4d4d;">
     <div class="menu-left">
       <i class="fa-solid fa-right-from-bracket"></i>Salir
     </div>
@@ -324,7 +339,7 @@ h1 {
 
 <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
-<!-- MODAL PASSWORD -->
+<!-- MODAL -->
 <div id="passwordModal">
   <div class="modal-content">
     <img src="https://i.postimg.cc/fLhtVJy2/1774069732194.png">
@@ -334,7 +349,7 @@ h1 {
   </div>
 </div>
 
-<!-- RELOJ ACTUALIZADO -->
+<!-- RELOJ -->
 <div class="reloj-salsa">
   <div class="titulo-reloj">⏰ Mi Horario Salsa</div>
   <div class="reloj-grid">
@@ -387,7 +402,6 @@ h1 {
 </section>
 
 <script>
-// MENU
 function toggleMenu(){
   document.getElementById("sidebar").classList.toggle("active");
   document.getElementById("overlay").classList.toggle("active");
@@ -398,7 +412,6 @@ function toggleSub(id){
   el.style.maxHeight = el.style.maxHeight ? null : el.scrollHeight + "px";
 }
 
-// SESIÓN 3 HORAS
 const PASSWORD = "fairy2025";
 const DURACION = 3 * 60 * 60 * 1000;
 
@@ -431,7 +444,6 @@ function logout(){
   window.location.href = "zona-streamer.html";
 }
 
-// RELOJ
 function calcularHora(){
   const ahora = new Date();
   document.getElementById('horaColombia').textContent = 
@@ -445,7 +457,6 @@ function calcularHora(){
 setInterval(calcularHora, 60000);
 calcularHora();
 
-// Iniciar
 checkSession();
 </script>
 
