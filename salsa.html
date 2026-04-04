@@ -46,7 +46,6 @@ body {
   transform:translateX(-100%);
   transition:0.3s ease;
   z-index:3000;
-  box-shadow:5px 0 20px rgba(0,0,0,0.5);
 }
 
 .sidebar.active { transform:translateX(0); }
@@ -155,7 +154,7 @@ h2 { color:#ffd700; margin-bottom:15px; }
   cursor:pointer;
 }
 
-/* RELOJ PEQUEÑO Y LIMPIO (esquina derecha) */
+/* RELOJ PEQUEÑO */
 .reloj-salsa {
   position:absolute;
   top:25px;
@@ -166,7 +165,7 @@ h2 { color:#ffd700; margin-bottom:15px; }
   border:1px solid #ffd700;
   z-index:2002;
   font-size:13px;
-  max-width:160px;
+  max-width:170px;
 }
 
 .titulo-reloj { 
@@ -335,7 +334,7 @@ h1 {
   </div>
 </div>
 
-<!-- RELOJ PEQUEÑO EN ESQUINA DERECHA -->
+<!-- RELOJ ACTUALIZADO -->
 <div class="reloj-salsa">
   <div class="titulo-reloj">⏰ Mi Horario Salsa</div>
   <div class="reloj-grid">
@@ -346,7 +345,26 @@ h1 {
     <div class="bloque-reloj">
       <select id="pais" class="select" onchange="calcularHora()">
         <option value="America/Mexico_City">México</option>
-        <option value="America/Bogota" selected>Colombia</option>
+        <option value="America/Argentina/Buenos_Aires">Argentina</option>
+        <option value="America/La_Paz">Bolivia</option>
+        <option value="America/Sao_Paulo">Brasil</option>
+        <option value="America/Santiago">Chile</option>
+        <option value="America/Costa_Rica">Costa Rica</option>
+        <option value="America/Guayaquil">Ecuador</option>
+        <option value="America/El_Salvador">El Salvador</option>
+        <option value="America/Guatemala">Guatemala</option>
+        <option value="America/Tegucigalpa">Honduras</option>
+        <option value="America/Managua">Nicaragua</option>
+        <option value="America/Panama">Panamá</option>
+        <option value="America/Asuncion">Paraguay</option>
+        <option value="America/Lima">Perú</option>
+        <option value="America/Montevideo">Uruguay</option>
+        <option value="America/Caracas">Venezuela</option>
+        <option value="Europe/Madrid">España</option>
+        <option value="America/New_York">EE.UU. (Este)</option>
+        <option value="America/Chicago">EE.UU. (Centro)</option>
+        <option value="America/Denver">EE.UU. (Montaña)</option>
+        <option value="America/Los_Angeles">EE.UU. (Pacífico)</option>
       </select>
       <div class="hora" id="horaLocal"></div>
     </div>
