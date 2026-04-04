@@ -21,8 +21,8 @@ body {
   display:flex;
   align-items:center;
   gap:12px;
-  position:absolute;
-  top:25px;
+  position:fixed;
+  top:20px;
   left:20px;
   z-index:2001;
 }
@@ -33,8 +33,403 @@ body {
   cursor:pointer;
 }
 
-.logo { width:85px; }
+.logo-header { 
+  width:85px; 
+  filter: brightness(1.15); 
+}
 
+/* SIDEBAR */
+.sidebar {
+  position:fixed;
+  top:0;
+  left:0;
+  width:260px;
+  height:100%;
+  background:#111;
+  padding:90px 18px 20px;
+  transform:translateX(-100%);
+  transition:0.3s ease;
+  z-index:3000;
+  box-shadow:5px 0 20px rgba(0,0,0,0.5);
+}
+
+.sidebar.active { transform:translateX(0); }
+
+.logo-menu {
+  width:140px;
+  display:block;
+  margin:0 auto 30px;
+  filter: brightness(1.15);
+}
+
+.menu-item {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px 12px;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+.menu-item:hover { background:#222; }
+
+.menu-left {
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.menu-left i { color:#ffd700; }
+
+.salsa-s {
+  color:#ffd700 !important;
+  font-size:24px;
+  font-weight:900;
+  width:24px;
+  text-align:center;
+}
+
+/* SUBMENU */
+.submenu {
+  max-height:0;
+  overflow:hidden;
+  transition:0.3s;
+  padding-left:28px;
+}
+
+.submenu a {
+  display:block;
+  padding:8px 0;
+  color:#ccc;
+  text-decoration:none;
+}
+
+.submenu a:hover { color:#ffd700; }
+
+/* OVERLAY */
+.overlay {
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:rgba(0,0,0,0.7);
+  opacity:0;
+  visibility:hidden;
+  transition:0.3s;
+  z-index:2500;
+}
+
+.overlay.active {
+  opacity:1;
+  visibility:visible;
+}
+
+/* MODAL */
+#passwordModal {
+  position:fixed; 
+  top:0; left:0; 
+  width:100%; height:100%; 
+  background:rgba(0,0,0,0.98); 
+  display:flex; 
+  align-items:center; 
+  justify-content:center; 
+  z-index:4000;
+}
+
+.modal-content {
+  background:#111; 
+  padding:40px 30px; 
+  border-radius:20px; 
+  text-align:center; 
+  max-width:340px; 
+  width:90%;
+}
+
+.modal-content img { 
+  width:180px; 
+  margin-bottom:25px; 
+  filter: brightness(1.15);
+}
+
+h2 { color:#ffd700; margin-bottom:15px; }
+
+#passInput {
+  width:100%; 
+  padding:15px; 
+  background:#222; 
+  border:none; 
+  border-radius:10px; 
+  color:white; 
+  margin:15px 0;
+  text-align:center;
+}
+
+.btn-entrar {
+  background:#ffd700; 
+  color:black; 
+  padding:14px 50px; 
+  border:none; 
+  border-radius:10px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* SLIDER */
+.slider {
+  width:100%;
+  height:100vh;
+  position:relative;
+  overflow:hidden;
+}
+
+.slides {
+  display:flex;
+  transition:0.45s ease;
+  height:100%;
+}
+
+.slide {
+  min-width:100vw;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.img-container {
+  max-width:90%;
+  max-height:85%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.img-container img {
+  max-width:100%;
+  max-height:100%;
+  object-fit:contain;
+}
+
+.arrow {
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:26px;
+  color:white;
+  background:rgba(0,0,0,0.4);
+  padding:10px 14px;
+  border-radius:50%;
+  cursor:pointer;
+  z-index:10;
+}
+
+.arrow.left { left:10px; }
+.arrow.right { right:10px; }
+
+.indicador {
+  position:absolute;
+  bottom:25px;
+  width:100%;
+  text-align:center;
+  color:white;
+}
+
+.numero { font-size:14px; }
+
+.barras {
+  display:flex;
+  justify-content:center;
+  gap:5px;
+  margin-top:8px;
+}
+
+.barra {
+  width:18px;
+  height:4px;
+  background:#555;
+  border-radius:2px;
+}
+
+.barra.active { background:#fff; }
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="menu-btn" onclick="toggleMenu()">
+    <i class="fa-solid fa-bars"></i>
+  </div>
+  <img src="https://i.postimg.cc/fLhtVJy2/1774069732194.png" class="logo-header">
+</div>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+
+  <img src="https://i.postimg.cc/fLhtVJy2/1774069732194.png" class="logo-menu">
+
+  <div class="menu-item" onclick="toggleSub('inicio')">
+    <div class="menu-left">
+      <i class="fa-solid fa-house"></i>Inicio
+    </div>
+    ▼
+  </div>
+
+  <div class="submenu" id="inicio">
+    <a href="zona-streamer.html">Zona Streamer</a>
+    <a href="fairy-academy.html">Fairy Academy</a>
+    <a href="salsa.html">SALSA</a>
+    <a href="reportes-salsa.html">Reportes</a>
+    <a href="binance-streamer.html">Binance</a>
+    <a href="noticias.html">Noticias</a>
+    <a href="reglamento-interno.html">Reglamento</a>
+  </div>
+
+  <div class="menu-item" onclick="toggleSub('fairy')">
+    <div class="menu-left">
+      <i class="fa-solid fa-graduation-cap"></i>Fairy Academy
+    </div>
+    ▼
+  </div>
+
+  <div class="submenu" id="fairy">
+    <a href="capacitaciones.html">Capacitaciones</a>
+    <a href="tutoriales.html">Tutoriales</a>
+    <a href="tips-fairy.html">Tips Fairy</a>
+  </div>
+
+  <div class="menu-item" onclick="toggleSub('salsa')">
+    <div class="menu-left">
+      <span class="salsa-s">S</span>SALSA
+    </div>
+    ▼
+  </div>
+
+  <div class="submenu" id="salsa">
+    <a href="capacitaciones-salsa.html">Capacitaciones</a>
+    <a href="tutoriales-salsa.html">Tutoriales</a>
+    <a href="reglas-salsa.html">Reglas SALSA</a>
+    <a href="herramientas-salsa.html">Herramientas</a>
+  </div>
+
+  <div class="menu-item logout" onclick="logout()" style="color:#ff4d4d;">
+    <div class="menu-left">
+      <i class="fa-solid fa-right-from-bracket"></i>Salir
+    </div>
+  </div>
+
+</div>
+
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+<!-- MODAL -->
+<div id="passwordModal">
+  <div class="modal-content">
+    <img src="https://i.postimg.cc/fLhtVJy2/1774069732194.png">
+    <h2>Área Privada</h2>
+    <input type="password" id="passInput" placeholder="Contraseña">
+    <button onclick="checkPassword()" class="btn-entrar">Entrar</button>
+  </div>
+</div>
+
+<!-- SLIDER -->
+<div class="slider">
+
+  <div class="arrow left" onclick="prevSlide()">❮</div>
+  <div class="arrow right" onclick="nextSlide()">❯</div>
+
+  <div class="slides" id="slides">
+    <div class="slide"><div class="img-container"><img src="https://i.postimg.cc/q7LVKvxL/Portada-1.jpg"></div></div>
+    <div class="slide"><div class="img-container"><img src="https://i.postimg.cc/T1KZBqM7/Pagina-2.jpg"></div></div>
+    <div class="slide"><div class="img-container"><img src="https://i.postimg.cc/xd9B9SVL/Pagina-3.jpg"></div></div>
+    <div class="slide"><div class="img-container"><img src="https://i.postimg.cc/X7dVJ3t3/Pagina-4.jpg"></div></div>
+    <div class="slide"><div class="img-container"><img src="https://i.postimg.cc/J0j91706/Pagina-5.jpg"></div></div>
+    <div class="slide"><div class="img-container"><img src="https://i.postimg.cc/TwDs92Vv/Pagina-6.jpg"></div></div>
+    <div class="slide"><div class="img-container"><img src="https://i.postimg.cc/BnjBDYcQ/Pagina-7.jpg"></div></div>
+    <div class="slide"><div class="img-container"><img src="https://i.postimg.cc/m25Qb3fs/Pagina-8.jpg"></div></div>
+    <div class="slide"><div class="img-container"><img src="https://i.postimg.cc/fLDdHBXS/Pagina-9.jpg"></div></div>
+    <div class="slide"><div class="img-container"><img src="https://i.postimg.cc/SN3M0y8r/Pagina-10.jpg"></div></div>
+    <div class="slide"><div class="img-container"><img src="https://i.postimg.cc/B6mjms4m/Pagina-11.jpg"></div></div>
+  </div>
+
+  <div class="indicador">
+    <div class="numero" id="numero">1 / 11</div>
+    <div class="barras" id="barras"></div>
+  </div>
+
+</div>
+
+<script>
+function toggleMenu(){
+  document.getElementById("sidebar").classList.toggle("active");
+  document.getElementById("overlay").classList.toggle("active");
+}
+
+function toggleSub(id){
+  const el = document.getElementById(id);
+  el.style.maxHeight = el.style.maxHeight ? null : el.scrollHeight + "px";
+}
+
+const PASSWORD="fairy2025";
+const DURACION=3*60*60*1000;
+
+function checkPassword(){
+  if(document.getElementById('passInput').value===PASSWORD){
+    localStorage.setItem("fairyAccess","true");
+    localStorage.setItem("fairyTime",Date.now());
+    document.getElementById("passwordModal").style.display="none";
+  }else{ alert("Contraseña incorrecta"); }
+}
+
+function checkSession(){
+  const access=localStorage.getItem("fairyAccess");
+  const time=localStorage.getItem("fairyTime");
+
+  if(!access||!time||(Date.now()-parseInt(time)>DURACION)){
+    localStorage.clear();
+    document.getElementById("passwordModal").style.display="flex";
+    return;
+  }
+  document.getElementById("passwordModal").style.display="none";
+}
+
+function logout(){
+  localStorage.clear();
+  window.location.href="zona-streamer.html";
+}
+
+// SLIDER
+let index=0;
+const slides=document.getElementById("slides");
+const total=slides.children.length;
+const numero=document.getElementById("numero");
+const barrasContainer=document.getElementById("barras");
+
+for(let i=0;i<total;i++){
+  const barra=document.createElement("div");
+  barra.classList.add("barra");
+  if(i===0) barra.classList.add("active");
+  barrasContainer.appendChild(barra);
+}
+
+const barras=document.querySelectorAll(".barra");
+
+function actualizar(){
+  slides.style.transform=`translateX(-${index*100}vw)`;
+  numero.textContent=`${index+1} / ${total}`;
+  barras.forEach(b=>b.classList.remove("active"));
+  barras[index].classList.add("active");
+}
+
+function nextSlide(){ if(index<total-1){ index++; actualizar(); } }
+function prevSlide(){ if(index>0){ index--; actualizar(); } }
+
+checkSession();
+actualizar();
+</script>
+
+</body>
+</html>
 /* SIDEBAR */
 .sidebar {
   position:fixed;
