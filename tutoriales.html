@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contenido en Desarrollo — Fairy Agency</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* ESTILOS GLOBALES SISTEMA FAIRY */
+        body { 
+            margin:0; 
+            font-family:'Georgia',serif; 
+            background:#0a0a0a; 
+            color:#eaeaea; 
+            overflow:hidden;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* SISTEMA DE LOGIN (EXACTO AL PROYECTO) */
+        #passwordModal {
+            position:fixed;
+            top:0; left:0;
+            width:100%; height:100%;
+            background:rgba(0,0,0,0.98);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            z-index:4000;
+        }
+        .modal-content {
+            background:#111;
+            padding:40px 30px;
+            border-radius:20px;
+            text-align:center;
+            max-width:340px;
+            width:90%;
+        }
+        .modal-content img {
+            width:180px;
+            margin-bottom:25px;
+            filter: brightness(1.15);
+        }
+        h2 { color:#ffd700; margin-bottom:15px; font-family: sans-serif; }
+        #passInput {
+            width:100%;
+            padding:15px;
+            background:#222;
+            border:none;
+            border-radius:10px;
+            color:white;
+            margin:15px 0;
+            text-align:center;
+            box-sizing: border-box;
+        }
+        .btn-entrar {
+            background:#ffd700;
+            color:black;
+            padding:14px 50px;
+            border:none;
+            border-radius:10px;
+            font-weight:bold;
+            cursor:pointer;
+        }
+        #mainContent { display:none; width: 100%; height: 100%; }
+
+        /* HEADER */
+        .header {
+            display:flex; align-items:center; gap:12px;
+            position:fixed; top:20px; left:20px; z-index:2001;
+        }
+        .menu-btn { font-size:24px; color:#ffd700; cursor:pointer; }
+        .logo-header { width:85px; filter: brightness(1.15); }
+
+        /* SIDEBAR COMPLETO */
+        .sidebar {
+            position:fixed; top:0; left:0; width:260px; height:100%;
+            background:#111; padding:90px 18px 20px;
+            transform:translateX(-100%); transition:0.3s ease;
+            z-index:3000; box-shadow:5px 0 20px rgba(0,0,0,0.5);
+            overflow-y: auto;
+        }
+        .sidebar.active { transform:translateX(0); }
+        .logo-menu { width:140px; display:block; margin:0 auto 30px; }
+
+        .menu-item {
+            display:flex; justify-content:space-between; align-items:center;
+            padding:12px; border-radius:10px; cursor:pointer;
+            color: white; text-decoration: none; margin-bottom: 5px;
+            font-family: sans-serif;
+        }
+        .menu-item:hover { background:#222; }
+        .menu-left { display:flex; align-items:center; gap:10px; }
+        .menu-left i { color:#ffd700; width: 20px; text-align: center; }
+        .salsa-s { color:#ffd700; font-weight:bold; width:20px; text-align:center; }
+
+        .submenu { max-height:0; overflow:hidden; transition:0.3s; padding-left:28px; }
+        .submenu a {
+            display:block; padding:8px 0; color:#ccc;
+            text-decoration:none; font-size: 14px; font-family: sans-serif;
+        }
+        .submenu a:hover { color:#ffd700; }
+
+        .overlay {
+            position:fixed; top:0; left:0; width:100%; height:100%;
+            background:rgba(0,0,0,0.7); opacity:0; visibility:hidden;
+            transition:0.3s; z-index:2500;
+        }
+        .overlay.active { opacity:1; visibility:visible; }
+
+        /* TARJETA CENTRAL DE CONTENIDO */
+        .container-center {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .card-placeholder {
+            background: white;
+            color: #1a1a1a;
+            padding: 40px 30px;
+            border-radius: 25px;
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            font-family: sans-serif;
+        }
+
+        .card-placeholder i {
+            font-size: 50px;
+            color: #ffd700;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .card-placeholder h1 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #000;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .card-placeholder p {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #444;
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+
+<body onload="checkSession()">
+
+    <div id="passwordModal">
+        <div class="modal-content">
+            <img src="https://i.postimg.cc/fLhtVJy2/1774069732194.png" alt="Logo Fairy">
+            <h2>Área Privada</h2>
+            <input type="password" id="passInput" placeholder="Contraseña">
+            <button onclick="checkPassword()" class="btn-entrar">Entrar</button>
+        </div>
+    </div>
+
+    <div id="mainContent">
+        <div class="header">
+            <div class="menu-btn" onclick="toggleMenu()">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            <img src="https://i.postimg.cc/fLhtVJy2/1774069732194.png" class="logo-header" alt="Fairy Logo">
+        </div>
+
+        <div class="sidebar" id="sidebar">
+            <img src="https://i.postimg.cc/fLhtVJy2/1774069732194.png" class="logo-menu">
+            <div class="menu-item" onclick="toggleSub('inicio')">
+                <div class="menu-left"><i class="fa-solid fa-house"></i>Inicio</div>▼
+            </div>
+            <div class="submenu" id="inicio">
+                <a href="zona-streamer.html">Zona Streamer</a>
+                <a href="fairy-academy.html">Fairy Academy</a>
+                <a href="salsa.html">SALSA</a>
+                <a href="reportes-salsa.html">Reportes</a>
+                <a href="binance-streamer.html">Binance</a>
+                <a href="noticias.html">Noticias</a>
+                <a href="reglamento-interno.html">Reglamento</a>
+            </div>
+            <div class="menu-item" onclick="toggleSub('fairy')">
+                <div class="menu-left"><i class="fa-solid fa-graduation-cap"></i>Fairy Academy</div>▼
+            </div>
+            <div class="submenu" id="fairy">
+                <a href="capacitaciones.html">Capacitaciones</a>
+                <a href="tutoriales.html">Tutoriales</a>
+                <a href="tips-fairy.html">Tips Fairy</a>
+            </div>
+            <div class="menu-item" onclick="toggleSub('salsa-sub')">
+                <div class="menu-left"><span class="salsa-s">S</span>SALSA</div>▼
+            </div>
+            <div class="submenu" id="salsa-sub">
+                <a href="capacitaciones-salsa.html">Capacitaciones</a>
+                <a href="tutoriales-salsa.html">Tutoriales</a>
+                <a href="reglas-salsa.html">Reglas SALSA</a>
+                <a href="herramientas-salsa.html">Herramientas</a>
+            </div>
+            <div class="menu-item" onclick="logout()" style="color:#ff4d4d; margin-top:10px;">
+                <div class="menu-left"><i class="fa-solid fa-right-from-bracket"></i>Salir</div>
+            </div>
+        </div>
+
+        <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+        <div class="container-center">
+            <div class="card-placeholder">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <h1>Contenido en desarrollo</h1>
+                <p>
+                    Muy pronto encontrarás aquí todas las capacitaciones necesarias para mejorar tu desempeño dentro del mundo del streaming para adultos.
+                    <br><br>
+                    Prepárate para acceder a contenido exclusivo creado por Fairy Agency.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* LÓGICA DE SEGURIDAD FAIRY */
+        const PASSWORD = "fairy2025";
+        const DURACION = 3600 * 3 * 1000; // 3 Horas
+
+        function checkPassword(){
+            if(document.getElementById('passInput').value === PASSWORD){
+                localStorage.setItem("fairyAccess", "true");
+                localStorage.setItem("fairyTime", Date.now());
+                document.getElementById("passwordModal").style.display = "none";
+                document.getElementById("mainContent").style.display = "block";
+            } else {
+                alert("Contraseña incorrecta");
+            }
+        }
+
+        function checkSession(){
+            const access = localStorage.getItem("fairyAccess");
+            const time = localStorage.getItem("fairyTime");
+            if(!access || !time || (Date.now() - parseInt(time) > DURACION)){
+                localStorage.clear();
+                document.getElementById("passwordModal").style.display = "flex";
+            } else {
+                document.getElementById("passwordModal").style.display = "none";
+                document.getElementById("mainContent").style.display = "block";
+            }
+        }
+
+        /* MENÚ INTERACTIVO */
+        function toggleMenu(){
+            document.getElementById("sidebar").classList.toggle("active");
+            document.getElementById("overlay").classList.toggle("active");
+        }
+
+        function toggleSub(id){
+            const el = document.getElementById(id);
+            el.style.maxHeight = el.style.maxHeight ? null : el.scrollHeight + "px";
+        }
+
+        function logout(){ 
+            localStorage.clear(); 
+            window.location.href = "zona-streamer.html"; 
+        }
+    </script>
+</body>
+</html>
