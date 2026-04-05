@@ -17,60 +17,6 @@ body {
   overflow:hidden;
 }
 
-/* SISTEMA DE LOGIN ORIGINAL */
-#passwordModal {
-  position:fixed;
-  top:0; left:0;
-  width:100%; height:100%;
-  background:rgba(0,0,0,0.98);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:4000;
-}
-
-.modal-content {
-  background:#111;
-  padding:40px 30px;
-  border-radius:20px;
-  text-align:center;
-  max-width:340px;
-  width:90%;
-}
-
-.modal-content img {
-  width:180px;
-  margin-bottom:25px;
-  filter: brightness(1.15);
-}
-
-h2 { color:#ffd700; margin-bottom:15px; }
-
-#passInput {
-  width:100%;
-  padding:15px;
-  background:#222;
-  border:none;
-  border-radius:10px;
-  color:white;
-  margin:15px 0;
-  text-align:center;
-}
-
-.btn-entrar {
-  background:#ffd700;
-  color:black;
-  padding:14px 50px;
-  border:none;
-  border-radius:10px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-#mainContent {
-  display:none;
-}
-
 /* HEADER */
 .header {
   display:flex; align-items:center; gap:12px;
@@ -154,15 +100,6 @@ iframe { width: 100%; height: 100%; border: none; }
 </head>
 
 <body onload="checkSession()">
-
-<div id="passwordModal">
-  <div class="modal-content">
-    <img src="https://i.postimg.cc/fLhtVJy2/1774069732194.png">
-    <h2>Área Privada</h2>
-    <input type="password" id="passInput" placeholder="Contraseña">
-    <button onclick="checkPassword()" class="btn-entrar">Entrar</button>
-  </div>
-</div>
 
 <div id="mainContent">
   <div class="header">
@@ -258,33 +195,17 @@ iframe { width: 100%; height: 100%; border: none; }
 </div>
 
 <script>
-/* JAVASCRIPT OBLIGATORIO */
-const PASSWORD="fairy2025";
-const DURACION=3600 * 3 * 1000; // 3 Horas
-
-function checkPassword(){
-  if(document.getElementById('passInput').value===PASSWORD){
-    localStorage.setItem("fairyAccess","true");
-    localStorage.setItem("fairyTime",Date.now());
-    document.getElementById("passwordModal").style.display="none";
-    document.getElementById("mainContent").style.display="block";
-    actualizar();
-  }else{
-    alert("Contraseña incorrecta");
-  }
-}
-
+/* LÓGICA DE SESIÓN GLOBAL */
 function checkSession(){
-  const access=localStorage.getItem("fairyAccess");
-  const time=localStorage.getItem("fairyTime");
+  const access = localStorage.getItem("fairyAccess");
+  const time = localStorage.getItem("fairyTime");
 
-  if(!access||!time||(Date.now()-parseInt(time)>DURACION)){
-    localStorage.clear();
-    document.getElementById("passwordModal").style.display="flex";
-  }else{
-    document.getElementById("passwordModal").style.display="none";
-    document.getElementById("mainContent").style.display="block";
-    actualizar();
+  if(!access || !time || (Date.now() - parseInt(time) > 10800000)){
+      localStorage.clear();
+      window.location.href = "zona-streamer.html";
+  } else {
+      document.getElementById("mainContent").style.display = "block";
+      actualizar(); // Inicia el slider si hay sesión
   }
 }
 
@@ -325,4 +246,5 @@ function prevSlide(){ if(index > 0){ index--; actualizar(); } }
 </script>
 
 </body>
-</html>
+  </html>
+  
