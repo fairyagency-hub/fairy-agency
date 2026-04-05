@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
-        /* ESTILOS GLOBALES SISTEMA FAIRY */
         body { 
             margin:0; 
             font-family:'Georgia',serif; 
@@ -18,11 +17,9 @@
             height: 100vh;
         }
 
-        /* CONTENIDO PRINCIPAL */
         #mainContent { display:none; }
         #mainContent.session-active { display:block; }
 
-        /* HEADER */
         .header {
             display:flex; align-items:center; gap:12px;
             position:fixed; top:20px; left:20px; z-index:2001;
@@ -30,7 +27,6 @@
         .menu-btn { font-size:24px; color:#ffd700; cursor:pointer; }
         .logo-header { width:85px; filter: brightness(1.15); }
 
-        /* SIDEBAR */
         .sidebar {
             position:fixed; top:0; left:0; width:260px; height:100%;
             background:#111; padding:90px 18px 20px;
@@ -45,7 +41,6 @@
             display:flex; justify-content:space-between; align-items:center;
             padding:12px; border-radius:10px; cursor:pointer;
             color: white; text-decoration: none; margin-bottom: 5px;
-            font-family: sans-serif;
         }
         .menu-item:hover { background:#222; }
         .menu-left { display:flex; align-items:center; gap:10px; }
@@ -55,7 +50,7 @@
         .submenu { max-height:0; overflow:hidden; transition:0.3s; padding-left:28px; }
         .submenu a {
             display:block; padding:8px 0; color:#ccc;
-            text-decoration:none; font-size: 14px; font-family: sans-serif;
+            text-decoration:none; font-size: 14px;
         }
         .submenu a:hover { color:#ffd700; }
 
@@ -66,7 +61,7 @@
         }
         .overlay.active { opacity:1; visibility:visible; }
 
-        /* SLIDER SISTEMA LIBRO */
+        /* SLIDER OPTIMIZADO */
         .slider-container { 
             height: 100vh; 
             width: 100vw; 
@@ -91,7 +86,7 @@
             box-sizing: border-box;
         }
 
-        .card-guia {
+        .card-guia, .card-video {
             background: white;
             color: black;
             padding: 30px 25px;
@@ -104,21 +99,11 @@
             box-shadow: 0 10px 40px rgba(0,0,0,0.6);
         }
 
-        .card-video {
-            background: white;
-            width: 90%;
-            max-width: 360px;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-        }
-
         .video-header {
             background: #000;
             color: #ffd700;
             padding: 15px;
             text-align: center;
-            font-family: sans-serif;
             font-weight: bold;
             font-size: 14px;
             text-transform: uppercase;
@@ -140,7 +125,6 @@
             border: none;
         }
 
-        /* CONTROLES SLIDER */
         .arrow { 
             position:absolute; 
             top:50%; 
@@ -183,14 +167,12 @@
             font-size: 13px; 
             font-weight: bold; 
             color: #ffd700; 
-            font-family: sans-serif; 
         }
     </style>
 </head>
 
 <body onload="checkSession()">
 
-    <!-- MODAL OCULTO POR DEFECTO (solo por compatibilidad) -->
     <div id="passwordModal" style="display:none;"></div>
 
     <div id="mainContent">
@@ -243,13 +225,11 @@
 
         <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
-        <!-- SLIDER -->
         <div class="slider-container">
             <div class="arrow left" onclick="prevSlide()">❮</div>
             <div class="arrow right" onclick="nextSlide()">❯</div>
 
             <div class="slides" id="slides">
-                
                 <div class="slide">
                     <div class="card-guia">
                         En esta sección aprenderás paso a paso cómo configurar correctamente tu cuenta de Binance para poder recibir tus pagos sin errores.
@@ -260,11 +240,12 @@
                     </div>
                 </div>
 
+                <!-- Los iframes se cargan con lazy loading para que no ralenticen la página -->
                 <div class="slide">
                     <div class="card-video">
                         <div class="video-header">PASO 1 — CREAR CUENTA</div>
                         <div class="video-container">
-                            <iframe src="https://drive.google.com/file/d/14wkxP4T8SRdgfzmQ0cqKHA-pdNYJ81oE/preview" allow="autoplay"></iframe>
+                            <iframe src="https://drive.google.com/file/d/14wkxP4T8SRdgfzmQ0cqKHA-pdNYJ81oE/preview" allow="autoplay" loading="lazy"></iframe>
                         </div>
                     </div>
                 </div>
@@ -273,16 +254,17 @@
                     <div class="card-video">
                         <div class="video-header">PASO 2 — SEGURIDAD</div>
                         <div class="video-container">
-                            <iframe src="https://drive.google.com/file/d/1QH1effdbIokELnrwO-WNBMGVndAgWYQy/preview"></iframe>
+                            <iframe src="https://drive.google.com/file/d/1QH1effdbIokELnrwO-WNBMGVndAgWYQy/preview" loading="lazy"></iframe>
                         </div>
                     </div>
                 </div>
 
+                <!-- Repite loading="lazy" en todos los iframes restantes -->
                 <div class="slide">
                     <div class="card-video">
                         <div class="video-header">PASO 3 — MÉTODO DE PAGO</div>
                         <div class="video-container">
-                            <iframe src="https://drive.google.com/file/d/1QzbED6qC8nCIxJiaEQxZhMGbarqwq6Hw/preview"></iframe>
+                            <iframe src="https://drive.google.com/file/d/1QzbED6qC8nCIxJiaEQxZhMGbarqwq6Hw/preview" loading="lazy"></iframe>
                         </div>
                     </div>
                 </div>
@@ -291,7 +273,7 @@
                     <div class="card-video">
                         <div class="video-header">PASO 4 — MONEDA LOCAL</div>
                         <div class="video-container">
-                            <iframe src="https://drive.google.com/file/d/1R2Xp1Ww4wePFBnJxLpuYWa9JYB9JQZx0/preview"></iframe>
+                            <iframe src="https://drive.google.com/file/d/1R2Xp1Ww4wePFBnJxLpuYWa9JYB9JQZx0/preview" loading="lazy"></iframe>
                         </div>
                     </div>
                 </div>
@@ -300,7 +282,7 @@
                     <div class="card-video">
                         <div class="video-header">PASO 5 — CUENTA BANCARIA</div>
                         <div class="video-container">
-                            <iframe src="https://drive.google.com/file/d/1R0IgR0SrdZTfKo9FuCLXAsO5QSPXiSCq/preview"></iframe>
+                            <iframe src="https://drive.google.com/file/d/1R0IgR0SrdZTfKo9FuCLXAsO5QSPXiSCq/preview" loading="lazy"></iframe>
                         </div>
                     </div>
                 </div>
@@ -309,7 +291,7 @@
                     <div class="card-video">
                         <div class="video-header">PASO 6 — TRANSFERENCIA</div>
                         <div class="video-container">
-                            <iframe src="https://drive.google.com/file/d/1QKw-6Sr88gbrqijpBmXgE3LMGOQ_nJxG/preview"></iframe>
+                            <iframe src="https://drive.google.com/file/d/1QKw-6Sr88gbrqijpBmXgE3LMGOQ_nJxG/preview" loading="lazy"></iframe>
                         </div>
                     </div>
                 </div>
@@ -318,11 +300,10 @@
                     <div class="card-video">
                         <div class="video-header">PASO 7 — COMERCIO P2P</div>
                         <div class="video-container">
-                            <iframe src="https://drive.google.com/file/d/1QsuaTtLpslOAKpk-6b2igqnmoS8mVgkU/preview"></iframe>
+                            <iframe src="https://drive.google.com/file/d/1QsuaTtLpslOAKpk-6b2igqnmoS8mVgkU/preview" loading="lazy"></iframe>
                         </div>
                     </div>
                 </div>
-
             </div>
 
             <div class="indicador">
@@ -333,8 +314,7 @@
     </div>
 
     <script>
-        /* === SESIÓN GLOBAL (3 HORAS) === */
-        const DURACION = 3 * 60 * 60 * 1000; // 3 horas en milisegundos
+        const DURACION = 3 * 60 * 60 * 1000;
 
         function checkSession(){
             const access = localStorage.getItem("fairyAccess");
@@ -342,20 +322,16 @@
             const ahora = Date.now();
 
             if (access === "true" && time && (ahora - parseInt(time) < DURACION)) {
-                // Sesión válida → mostrar contenido
                 document.getElementById("mainContent").classList.add("session-active");
                 actualizar();
             } else {
-                // Sesión inválida o expirada → redirigir al login principal
                 localStorage.clear();
                 window.location.href = "zona-streamer.html";
             }
         }
 
-        /* Compatibilidad (no se usa en esta página) */
         function checkPassword(){ return; }
 
-        /* MENÚ */
         function toggleMenu(){
             document.getElementById("sidebar").classList.toggle("active");
             document.getElementById("overlay").classList.toggle("active");
@@ -371,14 +347,12 @@
             window.location.href = "zona-streamer.html"; 
         }
 
-        /* LÓGICA DEL SLIDER */
         let index = 0;
         const slides = document.getElementById("slides");
         const total = slides.children.length;
         const numero = document.getElementById("numero");
         const barrasContainer = document.getElementById("barras");
 
-        // Crear barras
         for(let i = 0; i < total; i++){
             const b = document.createElement("div");
             b.className = "barra";
@@ -390,24 +364,11 @@
         function actualizar(){
             slides.style.transform = `translateX(-${index * 100}vw)`;
             numero.textContent = `${index + 1} / ${total}`;
-            barras.forEach((b, i) => {
-                b.classList.toggle("active", i === index);
-            });
+            barras.forEach((b, i) => b.classList.toggle("active", i === index));
         }
 
-        function nextSlide(){ 
-            if(index < total - 1){ 
-                index++; 
-                actualizar(); 
-            } 
-        }
-        
-        function prevSlide(){ 
-            if(index > 0){ 
-                index--; 
-                actualizar(); 
-            } 
-        }
+        function nextSlide(){ if(index < total-1){ index++; actualizar(); } }
+        function prevSlide(){ if(index > 0){ index--; actualizar(); } }
     </script>
 </body>
 </html>
