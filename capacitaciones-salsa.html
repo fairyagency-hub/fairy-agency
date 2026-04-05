@@ -42,11 +42,10 @@ h1 { color:#ffd700; text-align:center; margin-top:100px; }
 .hidden { display:none; }
 .empty { text-align:center; color:#888; margin-top:40px; font-size:16px; }
 
-/* Botón extra para reloj */
 .btn-reloj {
   display:block;
-  margin:20px auto;
-  padding:12px 20px;
+  margin:25px auto 10px;
+  padding:12px 24px;
   background:#ffd700;
   color:#000;
   text-align:center;
@@ -106,7 +105,7 @@ h1 { color:#ffd700; text-align:center; margin-top:100px; }
     <div class="subtab" onclick="cambiarSub('semana',event)">Esta semana</div>
   </div>
 
-  <!-- 🟡 GRABADAS - YOUTUBE (NO TOCAR) -->
+  <!-- YOUTUBE GRABADAS -->
   <div id="youtube-grabadas" class="lista">
     <div class="item"><img src="https://img.youtube.com/vi/LMH_0PFb0js/hqdefault.jpg"><div>Bienvenida al mundo Salsa<br><a class="ver" href="https://www.youtube.com/live/LMH_0PFb0js" target="_blank">Ver ▶</a></div></div>
     <div class="item"><img src="https://img.youtube.com/vi/3bc5nVBUbOo/hqdefault.jpg"><div>Activar cuenta<br><a class="ver" href="https://www.youtube.com/live/3bc5nVBUbOo" target="_blank">Ver ▶</a></div></div>
@@ -135,7 +134,7 @@ h1 { color:#ffd700; text-align:center; margin-top:100px; }
     <div class="item"><img src="https://img.youtube.com/vi/9teztVItqVw/hqdefault.jpg"><div>Detectar usuarios<br><a class="ver" href="https://www.youtube.com/live/9teztVItqVw" target="_blank">Ver ▶</a></div></div>
   </div>
 
-  <!-- 🔴 ESTA SEMANA - YOUTUBE (con fecha, hora Colombia y botón reloj) -->
+  <!-- YOUTUBE ESTA SEMANA -->
   <div id="youtube-semana" class="lista hidden">
     <div class="item">
       <img src="https://img.youtube.com/vi/yUKVcsZvKKw/hqdefault.jpg">
@@ -162,10 +161,10 @@ h1 { color:#ffd700; text-align:center; margin-top:100px; }
       <a class="ver" href="https://youtu.be/gK-8hWlTkgI" target="_blank">Ver video</a></div>
     </div>
 
-    <a href="salsa.html" class="btn-reloj">Ver horario en Salsa (mi hora local)</a>
+    <a href="salsa.html" class="btn-reloj">Ver mi horario en Salsa</a>
   </div>
 
-  <!-- 🔴 ESTA SEMANA - MEET -->
+  <!-- MEET ESTA SEMANA -->
   <div id="meet-semana" class="lista hidden">
     <div class="item">
       <i class="fa-solid fa-video" style="font-size:48px;color:#ffd700;width:140px;text-align:center;"></i>
@@ -246,4 +245,4 @@ function actualizar() {
 }
 </script>
 </body>
-                        </html>
+</html>
