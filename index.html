@@ -1,114 +1,477 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fairy Agency - Guía Salsa</title>
-<style>
-body { 
-  margin:0; 
-  font-family:'Georgia',serif; 
-  background:#0a0a0a; 
-  color:#eaeaea; 
-}
-.pagina { 
-  max-width:900px; 
-  margin:40px auto; 
-  padding:40px; 
-  background:#111; 
-  border-radius:12px; 
-}
-.logo { 
-  width:280px; 
-  display:block; 
-  margin:0 auto 20px; 
-}
-h1 { 
-  color:#ffd700; 
-  text-align:center; 
-  font-size:32px; 
-  margin-bottom:10px; 
-}
-h2 { 
-  color:#ffd700; 
-  border-bottom:1px solid rgba(255,215,0,0.3); 
-  padding-bottom:10px; 
-  margin-top:40px; 
-}
-p, li { 
-  line-height:1.8; 
-  font-size:17px; 
-}
-ul { 
-  padding-left:22px; 
-}
-.btn { 
-  display:block; 
-  text-align:center; 
-  margin:30px auto; 
-  padding:18px; 
-  background:#ffd700; 
-  color:black; 
-  text-decoration:none; 
-  border-radius:10px; 
-  font-weight:bold; 
-  font-size:19px; 
-  width:85%; 
-}
-.btn2 { 
-  display:block; 
-  text-align:center; 
-  margin:15px auto; 
-  padding:18px; 
-  background:#333; 
-  color:white; 
-  text-decoration:none; 
-  border-radius:10px; 
-  font-weight:bold; 
-  font-size:19px; 
-  width:85%; 
-}
-</style>
-</head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Guía Real del Trabajo - Fairy Agency</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 105px;
+            background: #0a0a0a;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 18px;
+        }
+
+        .logo {
+            height: 74px;
+            width: auto;
+        }
+
+        .container {
+            height: 100vh;
+            width: 100vw;
+            padding-top: 105px;
+            padding-bottom: 110px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .slider {
+            display: flex;
+            height: 100%;
+            width: 1500vw;
+            transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .slide {
+            min-width: 100vw;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 20px;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 390px;
+            background: #111111;
+            border-radius: 28px;
+            padding: 32px 26px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.75);
+            border: 1px solid #222;
+            min-height: 520px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slide-number {
+            font-size: 14px;
+            color: #ffd700;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .slide-title {
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 1.25;
+            margin-bottom: 22px;
+            color: #ffffff;
+        }
+
+        .slide-text {
+            font-size: 15.8px;
+            line-height: 1.68;
+            color: #e0e0e0;
+            flex-grow: 1;
+        }
+
+        .slide-text p, .slide-text ul {
+            margin-bottom: 14px;
+        }
+
+        .highlight {
+            color: #ffd700;
+            font-weight: 600;
+        }
+
+        /* Flechas - ABAJO, fuera de la tarjeta */
+        .navigation {
+            position: fixed;
+            bottom: 85px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 60px;
+            z-index: 1100;
+        }
+
+        .arrow {
+            width: 52px;
+            height: 52px;
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid #ffd700;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffd700;
+            font-size: 32px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: pulse 2.4s infinite ease-in-out;
+        }
+
+        .arrow:hover {
+            background: #ffd700;
+            color: #0a0a0a;
+            transform: scale(1.1);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.07); }
+        }
+
+        .pagination {
+            position: fixed;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(15, 15, 15, 0.95);
+            padding: 8px 24px;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #ffd700;
+            z-index: 1000;
+            border: 1px solid #333;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 17px 20px;
+            margin: 14px 0;
+            border: none;
+            border-radius: 18px;
+            font-size: 17px;
+            font-weight: 700;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ffd700, #ffcc00);
+            color: #0a0a0a;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #ffd700;
+            border: 2px solid #ffd700;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
 <body>
 
-<div class="pagina">
+    <div class="header">
+        <img src="https://i.postimg.cc/fLhtVJy2/1774069732194.png" alt="Fairy Agency" class="logo">
+    </div>
 
-  <img src="https://i.postimg.cc/xjw9VDpV/1774069732194.png" class="logo" alt="Fairy Agency">
+    <div class="container">
+        <div class="slider" id="slider">
 
-  <h1>Fairy Agency</h1>
-  <p style="text-align:center; color:#aaa;">Guía oficial para streamers en Salsa App</p>
+            <!-- SLIDE 1 -->
+            <div class="slide">
+                <div class="card">
+                    <div class="slide-number">01 / 15</div>
+                    <div class="slide-title">Guía real del trabajo</div>
+                    <div class="slide-text">
+                        <p>Este material fue creado para que entiendas cómo funciona realmente este trabajo antes de empezar.</p>
+                        <p>Aquí no vas a encontrar promesas falsas ni dinero fácil.</p>
+                        <p>Vas a conocer la realidad, cómo se gana dinero y qué se necesita para que funcione.</p>
+                        <p>Si decides continuar después de leer todo, será porque sabes exactamente en qué te estás metiendo.</p>
+                    </div>
+                </div>
+            </div>
 
-  <h2>¿Qué es Salsa?</h2>
-  <p>Salsa es una aplicación de contenido para adultos donde puedes generar ingresos mostrando tu personalidad y encantos. Las streamers ganan monedas que se convierten en dinero real.</p>
+            <!-- SLIDE 2 -->
+            <div class="slide">
+                <div class="card">
+                    <div class="slide-number">02 / 15</div>
+                    <div class="slide-title">¿Qué es ser streamer o novia virtual?</div>
+                    <div class="slide-text">
+                        <p>Ser streamer consiste en interactuar con usuarios mediante:</p>
+                        <ul style="margin: 16px 0; padding-left: 12px; line-height: 1.9;">
+                            <li>Videollamadas</li>
+                            <li>Lives</li>
+                            <li>Mensajes</li>
+                        </ul>
+                        <p>Los usuarios pagan por tu tiempo, tu atención y la experiencia que les brindas.</p>
+                        <p>No se trata solo de estar conectada, sino de saber conversar, generar interés y mantener la atención del usuario.</p>
+                    </div>
+                </div>
+            </div>
 
-  <h2>¿Cómo funciona?</h2>
-  <ul>
-    <li>Te conectas con cámara encendida</li>
-    <li>Interactúas con usuarios en lives públicos y privados</li>
-    <li>Ganas monedas por regalos, llamadas y contenido premium</li>
-    <li>650 monedas = 1 dólar</li>
-  </ul>
+            <!-- SLIDE 3 -->
+            <div class="slide">
+                <div class="card">
+                    <div class="slide-number">03 / 15</div>
+                    <div class="slide-title">Realidad que debes saber</div>
+                    <div class="slide-text">
+                        <p><strong>Salsa</strong> es una aplicación de entretenimiento para adultos.</p>
+                        <p>Muchos usuarios pueden mostrarse masturbándose desde el primer minuto.</p>
+                        <p>No estás obligada a hacer contenido sexual si no quieres, pero sí necesitas saber manejar este tipo de situaciones con seguridad y carácter.</p>
+                        <p>Si no estás dispuesta a enfrentar este entorno o aprender a manejarlo, este trabajo no es para ti.</p>
+                    </div>
+                </div>
+            </div>
 
-  <h2>Requisitos</h2>
-  <ul>
-    <li>Ser mayor de 18 años</li>
-    <li>Mostrar rostro (obligatorio)</li>
-    <li>Teléfono Android o iOS con buena cámara</li>
-    <li>Internet estable</li>
-  </ul>
+            <!-- SLIDE 4 -->
+            <div class="slide">
+                <div class="card">
+                    <div class="slide-number">04 / 15</div>
+                    <div class="slide-title">Sistema de ganancias</div>
+                    <div class="slide-text">
+                        <p>Dentro de la app todo funciona con monedas:</p>
+                        <p class="highlight" style="font-size: 20px; margin: 20px 0;">👉 650 monedas = $1 dólar</p>
+                        <p>Tu objetivo es generar la mayor cantidad de monedas posible.</p>
+                        <p>Entre más monedas generes:</p>
+                        <ul style="padding-left: 18px; margin-top: 12px;">
+                            <li>Más dinero ganas</li>
+                            <li>Más visibilidad te da la app</li>
+                            <li>Más oportunidades tienes de crecer</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
 
-  <h2>¿Cuánto se puede ganar?</h2>
-  <p>Depende de tu dedicación. Muchas streamers ganan entre $200 y $1000+ al mes trabajando con disciplina.</p>
+            <!-- SLIDE 5 -->
+            <div class="slide">
+                <div class="card">
+                    <div class="slide-number">05 / 15</div>
+                    <div class="slide-title">Videollamadas (ingreso principal)</div>
+                    <div class="slide-text">
+                        <p>Las videollamadas son una de las principales fuentes de ingresos dentro de la app:</p>
+                        <p style="margin: 16px 0;">
+                            Públicas: 60 monedas por minuto<br>
+                            Privadas: 120 monedas por minuto
+                        </p>
+                        <p>Además, durante la llamada los usuarios pueden enviarte regalos.</p>
+                        <p class="highlight">Los regalos pueden ayudarte a maximizar tus ganancias dentro de la app.</p>
+                        <p>Tu objetivo siempre será convertir usuarios a llamadas y mantenerlas el mayor tiempo posible.</p>
+                    </div>
+                </div>
+            </div>
 
-  <h2>¿Lista para empezar?</h2>
-  <p><strong>Solo si estás 100% segura</strong> después de leer toda la información:</p>
+            <!-- SLIDE 6 -->
+            <div class="slide">
+                <div class="card">
+                    <div class="slide-number">06 / 15</div>
+                    <div class="slide-title">Sistema de rendimiento</div>
+                    <div class="slide-text">
+                        <p>Dentro de la app existen objetivos que debes cumplir, como convertir usuarios en llamadas.</p>
+                        <p>👉 Al cumplir ciertos requisitos, puedes acceder a bonos diarios según tu rendimiento.</p>
+                        <p>No es automático, depende de tu constancia y resultados.</p>
+                    </div>
+                </div>
+            </div>
 
-  <a href="https://forms.gle/2c1Bim5zwVuCzTup6" class="btn2" target="_blank">Llenar formulario de verificación</a>
-  <a href="https://wa.me/50370482075" class="btn" target="_blank">Hablar por WhatsApp</a>
+            <!-- SLIDE 7 -->
+            <div class="slide">
+                <div class="card">
+                    <div class="slide-number">07 / 15</div>
+                    <div class="slide-title">Lives públicos y privados</div>
+                    <div class="slide-text">
+                        <p>También puedes generar ingresos haciendo transmisiones en vivo:</p>
+                        <p style="margin-top: 16px;"><strong>🔹 Lives públicos</strong><br>Generas dinero mediante regalos</p>
+                        <p style="margin-top: 16px;"><strong>🔹 Lives privados</strong><br>Generas dinero mediante regalos<br>Además puedes cobrar entrada en monedas</p>
+                        <p style="margin-top: 20px;">Los lives te ayudan a atraer usuarios y aumentar tus ingresos.</p>
+                    </div>
+                </div>
+            </div>
 
-</div>
+            <!-- SLIDE 8 -->
+            <div class="slide">
+                <div class="card">
+                    <div class="slide-number">08 / 15</div>
+                    <div class="slide-title">Otras formas de generar ingresos</div>
+                    <div class="slide-text">
+                        <p>Además de las videollamadas, existen otras formas de generar dinero que funcionan en paralelo:</p>
+                        <ul style="padding-left: 18px; margin: 16px 0; line-height: 1.8;">
+                            <li>Regalos: en mensajes, llamadas y lives</li>
+                            <li>Contenido premium: fotos o videos con precio</li>
+                            <li>Lives con entrada pagada</li>
+                        </ul>
+                        <p class="highlight">Mientras mejor combines estas opciones, mayores serán tus resultados.</p>
+                    </div>
+                </div>
+            </div>
 
-</body>
-</html>
+            <!-- SLIDE 9 -->
+            <div class="slide">
+                <div class="card">
+                    <div class="slide-number">09 / 15</div>
+                    <div class="slide-title">Ingresos adicionales</div>
+                    <div class="slide-text">
+                        <p><strong>🔹 Bono por rendimiento</strong><br>Es un ingreso adicional basado en tu rendimiento al convertir usuarios en llamadas.</p>
+                        <p style="margin: 14px 0;">Puede aumentar según tus resultados dentro de la app.</p>
+                        <p style="margin-top: 22px;"><strong>🔹 Referidos</strong><br>Puedes invitar a otras personas a trabajar.</p>
+                        <p>👉 Generas ingresos cuando ellas trabajan y generan resultados.</p>
+                        <p>No depende solo de invitar, sino de que las personas realmente trabajen.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 10 -->
+            <div class="slide">
+                <div class="card">
+                    <div class="slide-number">10 / 15</div>
+                    <div class="slide-title">Todas las formas de generar dinero</div>
+                    <div class="slide-text">
+                        <p>Dentro de la app puedes ganar dinero mediante:</p>
+                        <ul style="padding-left: 18px; margin: 16px 0; line-height: 1.9;">
+                            <li>Videollamadas</li>
+                            <li>Regalos</li>
+                            <li>Lives</li>
+                            <li>Contenido premium</li>
+                            <li>Bonos por rendimiento</li>
+                            <li>Referidos</li>
+                        </ul>
+                        <p class="highlight">Las videollamadas son la base, pero todo lo demás suma y potencia tus ingresos.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 11 -->
+            <div class="slide">
+                <div class="card">
+                    <div class="slide-number">11 / 15</div>
+                    <div class="slide-title">Requisitos para generar resultados</div>
+                    <div class="slide-text">
+                        <p><strong>Disponibilidad recomendada:</strong> 8 a 12 horas diarias</p>
+                        <p><strong>Mínimo funcional:</strong> 4 horas</p>
+                        <ul style="padding-left: 18px; margin: 16px 0;">
+                            <li>Constancia diaria</li>
+                            <li>Mostrar rostro (obligatorio)</li>
+                            <li>Buena conexión a internet</li>
+                        </ul>
+                        <p style="margin-top: 20px; color: #ff7777;">⚠️ Importante: Conectarte poco tiempo o de forma intermitente no genera resultados. El algoritmo premia la constancia y castiga la inactividad.</p>
+                        <p class="highlight">Si no te conectas, no ganas.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 12 -->
+            <div class="slide">
+                <div class="card">
+                    <div class="slide-number">12 / 15</div>
+                    <div class="slide-title">No se trata solo de conectarte</div>
+                    <div class="slide-text">
+                        <p>Este trabajo requiere más que estar en línea.</p>
+                        <p style="margin: 18px 0;">Necesitas:</p>
+                        <ul style="padding-left: 18px; line-height: 1.9;">
+                            <li>Excelente actitud</li>
+                            <li>Energía y presencia</li>
+                            <li>Habilidad para conversar</li>
+                            <li>Saber generar interés en el usuario</li>
+                        </ul>
+                        <p class="highlight">Conectarte sin intención, sin actitud o sin estrategia no genera resultados.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 13 -->
+            <div class="slide">
+                <div class="card">
+                    <div class="slide-number">13 / 15</div>
+                    <div class="slide-title">Lo que obtienes al ingresar</div>
+                    <div class="slide-text">
+                        <p>Al trabajar con nosotros tendrás acceso a:</p>
+                        <ul style="padding-left: 18px; margin: 16px 0; line-height: 1.85;">
+                            <li>Campus de aprendizaje completo</li>
+                            <li>Capacitaciones en vivo y grabadas</li>
+                            <li>Tutoriales y guías paso a paso</li>
+                            <li>Acompañamiento personalizado</li>
+                            <li>Estrategias reales para generar ingresos</li>
+                        </ul>
+                        <p style="margin-top: 18px;">Te damos todas las herramientas necesarias para entender la plataforma y mejorar tus resultados.</p>
+                        <p>Pero depende de ti aprovechar el contenido y aplicar lo aprendido.</p>
+                        <p class="highlight" style="margin-top: 18px;">Todo completamente GRATIS.<br>No pedimos dinero ni inversión.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 14 -->
+            <div class="slide">
+                <div class="card">
+                    <div class="slide-number">14 / 15</div>
+                    <div class="slide-title">Seriedad y responsabilidad</div>
+                    <div class="slide-text">
+                        <p>Brindamos acompañamiento personalizado constante.</p>
+                        <p>Por eso necesitamos trabajar con personas comprometidas.</p>
+                        <p style="margin: 20px 0; color: #ff7777;">Esto no es para:</p>
+                        <ul style="padding-left: 18px; line-height: 1.85;">
+                            <li>Personas que no responden</li>
+                            <li>Personas que no aplican lo aprendido</li>
+                            <li>Personas que no se capacitan</li>
+                        </ul>
+                        <p class="highlight">Aquí necesitas formarte, aprender y aplicar.</p>
+                        <p>Si no estás dispuesta a aprender y mejorar, no podremos ayudarte.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 15 -->
+            <div class="slide">
+                <div class="card">
+                    <div class="slide-number">15 / 15</div>
+                    <div class="slide-title" style="text-align: center; font-size: 27px; margin-bottom: 26px;">¿Lista para empezar?</div>
+                    <div class="slide-text" style="text-align: center; margin-bottom: 30px;">
+                        <p>Si leíste todo y estás segura, puedes iniciar tu proceso.</p>
+                    </div>
+                    
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeKdrdYSEHG-jLkm0-9DMBUEWq9xYQNGIC31HUJnNp4X1y3Gg/viewform" target="_blank" class="btn btn-primary">APLICAR AHORA</a>
+                    <a href="https://wa.me/50370482075" target="_blank" class="btn btn-secondary">Hablar por WhatsApp</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Navegación inferior -->
+    <div class="navigation" id="navigation">
+        <div class="arrow" id="prevBtn">‹</div>
+        <div class="arrow" id="nextBtn">›</div>
+    </div>
+
+    <div class="pagination" id="pagination">1 / 15</div>
+
+    <script>
+        let currentIndex = 0;
+        const totalSlides = 15;
+        const slider = document.getElementById('slider');
+        const pagination = document.getElementById('pagination');
+    
