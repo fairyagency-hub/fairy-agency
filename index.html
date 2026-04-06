@@ -460,8 +460,7 @@
 
         </div>
     </div>
-
-    <!-- Navegación inferior -->
+ <!-- Navegación inferior -->
     <div class="navigation" id="navigation">
         <div class="arrow" id="prevBtn">‹</div>
         <div class="arrow" id="nextBtn">›</div>
@@ -474,4 +473,65 @@
         const totalSlides = 15;
         const slider = document.getElementById('slider');
         const pagination = document.getElementById('pagination');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const navigation = document.getElementById('navigation');
+
+        function updateSlider() {
+            slider.style.transform = `translateX(-${currentIndex * 100}vw)`;
+            pagination.textContent = `${currentIndex + 1} / ${totalSlides}`;
+
+            // Control de flechas según slide
+            if (currentIndex === 0) {
+                prevBtn.style.display = 'none';
+                nextBtn.style.display = 'flex';
+            } else if (currentIndex === totalSlides - 1) {
+                prevBtn.style.display = 'flex';
+                nextBtn.style.display = 'none';
+            } else {
+                prevBtn.style.display = 'flex';
+                nextBtn.style.display = 'flex';
+            }
+        }
+
+        function nextSlide() {
+            if (currentIndex < totalSlides - 1) {
+                currentIndex++;
+                updateSlider();
+            }
+        }
+
+        function prevSlide() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateSlider();
+            }
+        }
+
+        // Eventos
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+
+        // Swipe táctil
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+        document.addEventListener('touchend', e => {
+            const diff = touchStartX - e.changedTouches[0].screenX;
+            if (diff > 60) nextSlide();
+            if (diff < -60) prevSlide();
+        });
+
+        // Teclas flecha
+        document.addEventListener('keydown', e => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+
+        // Inicializar
+        updateSlider();
+    </script>
+</body>
+</html>
     
