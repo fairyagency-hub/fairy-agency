@@ -126,6 +126,60 @@ body {
 
 .overlay.active { opacity:1; visibility:visible; }
 
+/* MODAL PASSWORD */
+#passwordModal {
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:rgba(0,0,0,0.98);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:4000;
+}
+
+.modal-content {
+  background:#111;
+  padding:40px 30px;
+  border-radius:20px;
+  text-align:center;
+  max-width:340px;
+  width:90%;
+}
+
+.modal-content img {
+  width:180px;
+  margin-bottom:25px;
+  filter: brightness(1.15);
+}
+
+/* ESTILOS DEL MODAL QUE FALTABAN */
+h2 {
+  color:#ffd700;
+  margin-bottom:15px;
+}
+
+#passInput {
+  width:100%;
+  padding:15px;
+  background:#222;
+  border:none;
+  border-radius:10px;
+  color:white;
+  margin:15px 0;
+  text-align:center;
+}
+
+.btn-entrar {
+  background:#ffd700;
+  color:black;
+  padding:14px 50px;
+  border:none;
+  border-radius:10px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
 /* 2. SISTEMA DE PÁGINAS (SLIDER) */
 .slider-container {
   height: 100vh;
@@ -291,146 +345,164 @@ img.tabla-niveles {
 </style>
 </head>
 
-<body>
+<body onload="checkSession()">
 
-<div class="header">
-  <div class="menu-btn" onclick="toggleMenu()">
-    <i class="fa-solid fa-bars"></i>
+<!-- MODAL -->
+<div id="passwordModal">
+  <div class="modal-content">
+    <img src="https://i.postimg.cc/fLhtVJy2/1774069732194.png">
+    <h2>Área Privada</h2>
+    <input type="password" id="passInput" placeholder="Contraseña">
+    <button onclick="checkPassword()" class="btn-entrar">Entrar</button>
   </div>
-  <img src="https://i.postimg.cc/fLhtVJy2/1774069732194.png" class="logo-header">
 </div>
 
-<div class="sidebar" id="sidebar">
+<!-- MAIN CONTENT -->
+<div id="mainContent" style="display:none;">
 
-  <img src="https://i.postimg.cc/fLhtVJy2/1774069732194.png" class="logo-menu">
-
-  <div class="menu-item" onclick="toggleSub('inicio')">
-    <div class="menu-left">
-      <i class="fa-solid fa-house"></i>Inicio
+  <div class="header">
+    <div class="menu-btn" onclick="toggleMenu()">
+      <i class="fa-solid fa-bars"></i>
     </div>
-    ▼
+    <img src="https://i.postimg.cc/fLhtVJy2/1774069732194.png" class="logo-header">
   </div>
 
-  <div class="submenu" id="inicio">
-    <a href="zona-streamer.html">Zona Streamer</a>
-    <a href="fairy-academy.html">Fairy Academy</a>
-    <a href="salsa.html">SALSA</a>
-    <a href="reportes-salsa.html">Reportes</a>
-    <a href="binance-streamer.html">Binance</a>
-    <a href="noticias.html">Noticias</a>
-    <a href="reglamento-interno.html">Reglamento</a>
-  </div>
+  <div class="sidebar" id="sidebar">
 
-  <div class="menu-item" onclick="toggleSub('fairy')">
-    <div class="menu-left">
-      <i class="fa-solid fa-graduation-cap"></i>Fairy Academy
-    </div>
-    ▼
-  </div>
+    <img src="https://i.postimg.cc/fLhtVJy2/1774069732194.png" class="logo-menu">
 
-  <div class="submenu" id="fairy">
-    <a href="capacitaciones.html">Capacitaciones</a>
-    <a href="tutoriales.html">Tutoriales</a>
-    <a href="tips-fairy.html">Tips Fairy</a>
-  </div>
-
-  <div class="menu-item" onclick="toggleSub('salsa')">
-    <div class="menu-left">
-      <span class="salsa-s">S</span>SALSA
-    </div>
-    ▼
-  </div>
-
-  <div class="submenu" id="salsa">
-    <a href="capacitaciones-salsa.html">Capacitaciones</a>
-    <a href="tutoriales-salsa.html">Tutoriales</a>
-    <a href="reglas-salsa.html">Reglas SALSA</a>
-    <a href="herramientas-salsa.html">Herramientas</a>
-  </div>
-
-  <div class="menu-item logout" onclick="logout()" style="color:#ff4d4d;">
-    <div class="menu-left">
-      <i class="fa-solid fa-right-from-bracket"></i>Salir
-    </div>
-  </div>
-
-</div>
-
-<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
-
-<div class="slider-container">
-  
-  <div class="arrow left" onclick="prevSlide()">❮</div>
-  <div class="arrow right" onclick="nextSlide()">❯</div>
-
-  <div class="slides" id="slides">
-
-    <div class="slide">
-      <div class="pagina">
-        <div class="guia-superior">
-          <h4>Seguridad e identidad</h4>
-          <p>SECCIÓN 01 — VERIFICACIÓN</p>
-        </div>
-        <div class="contenido-pagina">
-          <p>La verificación de identidad es el primer paso para asegurar tu lugar dentro de Fairy Agency.</p>
-          <p>Este proceso protege tanto a la agencia como a ti, garantizando que tu cuenta sea segura, única y sin riesgo de suplantaciones.</p>
-          <ul>
-            <li><strong>Protección de datos:</strong> Tu información se maneja de forma confidencial.</li>
-            <li><strong>Respaldo:</strong> Solo las streamers verificadas reciben soporte completo.</li>
-            <li><strong>Seguridad:</strong> Evita fraudes y asegura que tus ingresos lleguen correctamente.</li>
-          </ul>
-          <p>Esto te permite empezar con seguridad desde el primer momento.</p>
-          <a class="btn-accion" href="https://docs.google.com/forms/d/e/1FAIpQLSeKdrdYSEHG-jLkm0-9DMBUEWq9xYQNGIC31HUJnNp4X1y3Gg/viewform" target="_blank">Completar verificación</a>
-        </div>
+    <div class="menu-item" onclick="toggleSub('inicio')">
+      <div class="menu-left">
+        <i class="fa-solid fa-house"></i>Inicio
       </div>
+      ▼
     </div>
 
-    <div class="slide">
-      <div class="pagina">
-        <div class="guia-superior">
-          <h4>Seguimiento de resultados</h4>
-          <p>SECCIÓN 02 — REPORTE DIARIO</p>
-        </div>
-        <div class="contenido-pagina">
-          <p>El crecimiento en la app no es suerte, es estrategia.</p>
-          <p>El reporte diario permite acompañarte de forma directa para ayudarte a mejorar tus resultados y aumentar tus ingresos.</p>
-          <ul>
-            <li>Analizamos tu perfil</li>
-            <li>Revisamos tus horarios</li>
-            <li>Evaluamos tus ganancias</li>
-            <li>Ajustamos tus estrategias</li>
-          </ul>
-          <p>Tener este acompañamiento marca una gran diferencia en tu crecimiento.</p>
-          <a class="btn-accion" href="https://docs.google.com/forms/d/e/1FAIpQLSeiWCKf8LlbvEWudangC0SQn1U5ylEJHNxtrrw04Kls9ivG2Q/viewform" target="_blank">Enviar reporte hoy</a>
-        </div>
+    <div class="submenu" id="inicio">
+      <a href="zona-streamer.html">Zona Streamer</a>
+      <a href="fairy-academy.html">Fairy Academy</a>
+      <a href="salsa.html">SALSA</a>
+      <a href="reportes-salsa.html">Reportes</a>
+      <a href="binance-streamer.html">Binance</a>
+      <a href="noticias.html">Noticias</a>
+      <a href="reglamento-interno.html">Reglamento</a>
+    </div>
+
+    <div class="menu-item" onclick="toggleSub('fairy')">
+      <div class="menu-left">
+        <i class="fa-solid fa-graduation-cap"></i>Fairy Academy
       </div>
+      ▼
     </div>
 
-    <div class="slide">
-      <div class="pagina">
-        <div class="guia-superior">
-          <h4>Niveles y metas</h4>
-          <p>SECCIÓN 03 — GANANCIAS</p>
-        </div>
-        <div class="contenido-pagina">
-          <p>Conocer esta tabla te ayuda a organizar mejor tus metas y entender cuánto puedes generar dentro de la aplicación.</p>
-          <p>Mientras más avances de nivel, mayores serán tus ingresos. Utiliza esta referencia para planificar tu crecimiento de forma inteligente.</p>
-          <img src="https://i.postimg.cc/fkQkcBn1/Nivel-Requerido-(3).png" class="tabla-niveles">
-        </div>
+    <div class="submenu" id="fairy">
+      <a href="capacitaciones.html">Capacitaciones</a>
+      <a href="tutoriales.html">Tutoriales</a>
+      <a href="tips-fairy.html">Tips Fairy</a>
+    </div>
+
+    <div class="menu-item" onclick="toggleSub('salsa')">
+      <div class="menu-left">
+        <span class="salsa-s">S</span>SALSA
+      </div>
+      ▼
+    </div>
+
+    <div class="submenu" id="salsa">
+      <a href="capacitaciones-salsa.html">Capacitaciones</a>
+      <a href="tutoriales-salsa.html">Tutoriales</a>
+      <a href="reglas-salsa.html">Reglas SALSA</a>
+      <a href="herramientas-salsa.html">Herramientas</a>
+    </div>
+
+    <div class="menu-item logout" onclick="logout()" style="color:#ff4d4d;">
+      <div class="menu-left">
+        <i class="fa-solid fa-right-from-bracket"></i>Salir
       </div>
     </div>
 
   </div>
 
-  <div class="indicador">
-    <div id="numero"></div>
-    <div class="barras" id="barras"></div>
+  <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+  <div class="slider-container">
+    
+    <div class="arrow left" onclick="prevSlide()">❮</div>
+    <div class="arrow right" onclick="nextSlide()">❯</div>
+
+    <div class="slides" id="slides">
+
+      <div class="slide">
+        <div class="pagina">
+          <div class="guia-superior">
+            <h4>Seguridad e identidad</h4>
+            <p>SECCIÓN 01 — VERIFICACIÓN</p>
+          </div>
+          <div class="contenido-pagina">
+            <p>La verificación de identidad es el primer paso para asegurar tu lugar dentro de Fairy Agency.</p>
+            <p>Este proceso protege tanto a la agencia como a ti, garantizando que tu cuenta sea segura, única y sin riesgo de suplantaciones.</p>
+            <ul>
+              <li><strong>Protección de datos:</strong> Tu información se maneja de forma confidencial.</li>
+              <li><strong>Respaldo:</strong> Solo las streamers verificadas reciben soporte completo.</li>
+              <li><strong>Seguridad:</strong> Evita fraudes y asegura que tus ingresos lleguen correctamente.</li>
+            </ul>
+            <p>Esto te permite empezar con seguridad desde el primer momento.</p>
+            <a class="btn-accion" href="https://docs.google.com/forms/d/e/1FAIpQLSeKdrdYSEHG-jLkm0-9DMBUEWq9xYQNGIC31HUJnNp4X1y3Gg/viewform" target="_blank">Completar verificación</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide">
+        <div class="pagina">
+          <div class="guia-superior">
+            <h4>Seguimiento de resultados</h4>
+            <p>SECCIÓN 02 — REPORTE DIARIO</p>
+          </div>
+          <div class="contenido-pagina">
+            <p>El crecimiento en la app no es suerte, es estrategia.</p>
+            <p>El reporte diario permite acompañarte de forma directa para ayudarte a mejorar tus resultados y aumentar tus ingresos.</p>
+            <ul>
+              <li>Analizamos tu perfil</li>
+              <li>Revisamos tus horarios</li>
+              <li>Evaluamos tus ganancias</li>
+              <li>Ajustamos tus estrategias</li>
+            </ul>
+            <p>Tener este acompañamiento marca una gran diferencia en tu crecimiento.</p>
+            <a class="btn-accion" href="https://docs.google.com/forms/d/e/1FAIpQLSeiWCKf8LlbvEWudangC0SQn1U5ylEJHNxtrrw04Kls9ivG2Q/viewform" target="_blank">Enviar reporte hoy</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide">
+        <div class="pagina">
+          <div class="guia-superior">
+            <h4>Niveles y metas</h4>
+            <p>SECCIÓN 03 — GANANCIAS</p>
+          </div>
+          <div class="contenido-pagina">
+            <p>Conocer esta tabla te ayuda a organizar mejor tus metas y entender cuánto puedes generar dentro de la aplicación.</p>
+            <p>Mientras más avances de nivel, mayores serán tus ingresos. Utiliza esta referencia para planificar tu crecimiento de forma inteligente.</p>
+            <img src="https://i.postimg.cc/fkQkcBn1/Nivel-Requerido-(3).png" class="tabla-niveles">
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="indicador">
+      <div id="numero"></div>
+      <div class="barras" id="barras"></div>
+    </div>
+
   </div>
 
 </div>
 
 <script>
-/* 1. FUNCIONES JS OBLIGATORIAS (COPIADAS EXACTAMENTE) */
+const PASSWORD = "fairy2025";
+const DURACION = 3 * 60 * 60 * 1000;
+
+/* 1. FUNCIONES JS OBLIGATORIAS */
 function toggleMenu(){
   document.getElementById("sidebar").classList.toggle("active");
   document.getElementById("overlay").classList.toggle("active");
@@ -444,6 +516,31 @@ function toggleSub(id){
 function logout(){
   localStorage.clear();
   window.location.href="zona-streamer.html";
+}
+
+function checkPassword(){
+  if (document.getElementById('passInput').value === PASSWORD) {
+    localStorage.setItem("fairyAccess", "true");
+    localStorage.setItem("fairyTime", Date.now());
+    document.getElementById("passwordModal").style.display = "none";
+    document.getElementById("mainContent").style.display = "block";
+  } else {
+    alert("Contraseña incorrecta");
+  }
+}
+
+function checkSession(){
+  const access = localStorage.getItem("fairyAccess");
+  const time = localStorage.getItem("fairyTime");
+
+  if (!access || !time || (Date.now() - parseInt(time) > DURACION)) {
+    localStorage.clear();
+    document.getElementById("passwordModal").style.display = "flex";
+    document.getElementById("mainContent").style.display = "none";
+  } else {
+    document.getElementById("passwordModal").style.display = "none";
+    document.getElementById("mainContent").style.display = "block";
+  }
 }
 
 /* 2. LÓGICA DEL SLIDER */
@@ -478,5 +575,4 @@ actualizar();
 </script>
 
 </body>
-  </html>
-  
+</html>
