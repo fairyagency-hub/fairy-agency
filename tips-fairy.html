@@ -228,7 +228,7 @@ h2 { color:#ffd700; margin-bottom:15px; }
 </style>
 </head>
 
-<body>
+<body onload="checkSession()">
 
 <!-- HEADER -->
 <div class="header">
@@ -395,9 +395,7 @@ function logout(){
   localStorage.clear();
   window.location.href = "zona-streamer.html";
 }
-
-checkSession();
 </script>
 
 </body>
-                     </html>
+</html>
