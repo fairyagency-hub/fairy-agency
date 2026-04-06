@@ -7,13 +7,14 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
-/* 1. CSS ESTRUCTURAL PRESERVADO Y CORREGIDO */
+/* 1. ESTILOS BASE Y MENÚ (RESTAURADOS) */
 body { margin:0; font-family:'Georgia',serif; background:#0a0a0a; color:#eaeaea; overflow:hidden; height: 100vh; }
 
 .header { display:flex; align-items:center; gap:12px; position:absolute; top:25px; left:20px; z-index:2001; }
 .menu-btn { font-size:24px; color:#ffd700; cursor:pointer; }
 .logo { width:85px; filter: brightness(1.15); }
 
+/* SIDEBAR COMPLETO */
 .sidebar { position:fixed; top:0; left:0; width:260px; height:100%; background:#111; padding:90px 18px 20px; transform:translateX(-100%); transition:0.3s ease; z-index:3000; }
 .sidebar.active { transform:translateX(0); }
 .logo-menu { width:140px; display:block; margin:0 auto 30px; filter: brightness(1.15); }
@@ -41,154 +42,85 @@ body { margin:0; font-family:'Georgia',serif; background:#0a0a0a; color:#eaeaea;
 .pagina { display:none; height:100vh; width:100vw; }
 .pagina.activa { display:block; }
 
-/* TABS PRINCIPALES - DISTRIBUCIÓN MEJORADA */
-.tabs {
-  display:flex;
-  justify-content: space-around;
-  align-items: center;
-  margin-top: 130px;
-  padding: 0 10px;
-}
-.tab {
-  flex: 1;
-  text-align: center;
-  font-size: 15px;
-  color:#ffd700;
-  font-weight: bold;
-  opacity: 0.6;
-  white-space: nowrap;
-  cursor: pointer;
-  transition: 0.3s;
-}
-.tab.active {
-  opacity: 1;
-  border-bottom: 3px solid #ffd700;
-  padding-bottom: 6px;
-}
+/* NAVEGACIÓN TABS */
+.tabs { display:flex; justify-content: space-around; align-items: center; margin-top: 130px; padding: 0 10px; }
+.tab { flex: 1; text-align: center; font-size: 15px; color:#ffd700; font-weight: bold; opacity: 0.6; white-space: nowrap; cursor: pointer; transition: 0.3s; }
+.tab.active { opacity: 1; border-bottom: 3px solid #ffd700; padding-bottom: 6px; }
 
-/* SUBTABS */
 .subtabs { display:flex; justify-content:center; gap:12px; margin-top: 25px; }
 .subtab { padding:10px 20px; border-radius:25px; background:#1a1a1a; cursor:pointer; font-size:14px; color:#888; border: 1px solid #333; }
 .subtab.active { background:#ffd700; color:#000; font-weight:bold; border-color: #ffd700; }
 
-/* SLIDER CONTAINER - AJUSTE DE ALTURA */
-.slider-container {
-  height: calc(100vh - 220px);
-  width: 100vw;
-  position: relative;
-  margin-top: 10px;
-  overflow: hidden;
-}
+/* SLIDER Y TARJETAS ORIGINALES */
+.slider-container { height: calc(100vh - 220px); width: 100vw; position: relative; margin-top: 10px; overflow: hidden; }
 .slides { display:flex; transition:0.5s cubic-bezier(0.25, 1, 0.5, 1); height:100%; }
+.slide { min-width:100vw; width:100vw; height:100%; display:flex; justify-content:center; align-items: center; flex-shrink:0; position: relative; }
 
-/* SOLUCIÓN VISUAL: Centrado específico para tarjetas */
-.slide {
-  min-width:100vw;
-  width:100vw;
-  height:100%;
-  display:flex;
-  justify-content:center;
-  align-items: center; /* ESTO CENTRA LAS TARJETAS VERTICALMENTE */
-  flex-shrink:0;
-  position: relative;
-}
-
-/* TARJETAS PREMIUM REFORMADAS */
 .card-impact {
   background: linear-gradient(135deg, #fffaf0 0%, #f2e6d0 100%);
   color: #1a1a1a;
-  padding: 50px 30px;
+  padding: 40px 25px;
   border-radius: 30px;
   text-align: center;
-  width: 92%;
+  width: 88%;
   max-width: 400px;
-  min-height: 320px; /* Altura mínima para que se vean importantes */
+  min-height: 380px; 
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Centra el texto interno de la card */
+  justify-content: center; 
   box-shadow: 0 30px 70px rgba(0,0,0,0.9);
   border: 3px solid #b8930d;
   box-sizing: border-box;
 }
 
-.card-impact h3 { 
-  font-size: 20px; 
-  color: #8a6d0a; 
-  margin-bottom: 25px; 
-  text-transform: uppercase; 
-  letter-spacing: 1.5px; 
-  border-bottom: 2px solid #b8930d; 
-  padding-bottom: 15px; 
+.card-impact h3 { font-size: 20px; color: #8a6d0a; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1.5px; border-bottom: 2px solid #b8930d; padding-bottom: 12px; }
+.card-impact p { font-size: 16px; line-height: 1.7; font-weight: 600; color: #444; margin: 0; }
+
+.btn-action { display: inline-flex; align-items: center; justify-content: center; gap: 10px; margin-top: 20px; background: linear-gradient(135deg, #ffd700, #ffcc00); color: #000; padding: 14px 20px; border-radius: 12px; font-weight: bold; font-size: 13px; text-decoration: none; animation: pulseBtn 1.8s infinite; border: none; }
+
+@keyframes pulseBtn { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+
+/* ANIMACIÓN Y ESTILO DE FLECHAS */
+@keyframes hintArrow {
+  0%, 100% { opacity: 0.15; transform: translateY(-50%) scale(1); }
+  50% { opacity: 1; border-color: #ffd700; transform: translateY(-50%) scale(1.2); }
 }
 
-.card-impact p { 
-  font-size: 16px; 
-  line-height: 1.7; 
-  font-weight: 600; 
-  color: #444; 
-  margin: 0; 
-}
-
-/* BOTONES PROFESIONALES */
-.btn-action {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 25px;
-  background: linear-gradient(135deg, #ffd700, #ffcc00);
-  color: #000;
-  padding: 16px 24px;
-  border-radius: 14px;
-  font-weight: bold;
-  font-size: 14px;
-  text-decoration: none;
-  letter-spacing: 0.5px;
-  box-shadow: 0 10px 25px rgba(255,215,0,0.35);
-  transition: all 0.25s ease;
-  animation: pulseBtn 1.8s infinite;
-  border: none;
-  cursor: pointer;
-}
-.btn-action i { font-size: 16px; }
-.btn-action:hover { transform: translateY(-2px) scale(1.05); }
-.btn-action:active { transform: scale(0.95); }
-
-@keyframes pulseBtn {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
-}
-
-/* FLECHAS DE NAVEGACIÓN */
 .arrow {
   position: absolute;
-  bottom: 15px;
-  top: auto;
-  transform: none;
-  width: 50px;
-  height: 50px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 45px;
+  height: 45px;
   font-size: 20px;
-  color:#ffd700;
-  background: rgba(0,0,0,0.9);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:50%;
-  cursor:pointer;
-  z-index:100;
-  border: 1px solid #ffd700;
+  color: #ffd700;
+  background: rgba(0,0,0,0.3);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 2000;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  transition: all 0.3s ease;
+  opacity: 0.15;
+  animation: hintArrow 1s ease-in-out 3;
+  -webkit-tap-highlight-color: transparent;
 }
-.arrow.left { left: 25%; }
-.arrow.right { right: 25%; }
 
-/* AJUSTE PARA IMÁGENES COMPLETAS */
-.img-full { 
-  height: 75vh; /* Ocupa la mayor parte del alto disponible */
-  max-width: 92%; 
-  border-radius: 12px; 
-  object-fit: contain; /* Asegura que la imagen no se corte */
+.arrow:active {
+  opacity: 1;
+  background: rgba(0,0,0,0.9);
+  border-color: #ffd700;
+  transform: translateY(-50%) scale(1.1);
+  animation: none;
 }
+
+.arrow.left { left: 10px; }
+.arrow.right { right: 10px; }
+
+.img-full { height: 75vh; max-width: 92%; border-radius: 12px; object-fit: contain; }
 </style>
 </head>
 
@@ -203,6 +135,7 @@ body { margin:0; font-family:'Georgia',serif; background:#0a0a0a; color:#eaeaea;
 
 <div class="sidebar" id="sidebar">
   <img src="https://i.postimg.cc/fLhtVJy2/1774069732194.png" class="logo-menu">
+  
   <div class="menu-item" onclick="toggleSub('inicio')">
     <div class="menu-left"><i class="fa-solid fa-house"></i>Inicio</div>▼
   </div>
@@ -215,6 +148,7 @@ body { margin:0; font-family:'Georgia',serif; background:#0a0a0a; color:#eaeaea;
     <a href="noticias.html">Noticias</a>
     <a href="reglamento-interno.html">Reglamento</a>
   </div>
+
   <div class="menu-item" onclick="toggleSub('fairy')">
     <div class="menu-left"><i class="fa-solid fa-graduation-cap"></i>Fairy Academy</div>▼
   </div>
@@ -223,15 +157,17 @@ body { margin:0; font-family:'Georgia',serif; background:#0a0a0a; color:#eaeaea;
     <a href="tutoriales.html">Tutoriales</a>
     <a href="tips-fairy.html">Tips Fairy</a>
   </div>
-  <div class="menu-item" onclick="toggleSub('salsa')">
+
+  <div class="menu-item" onclick="toggleSub('salsa-menu')">
     <div class="menu-left"><span class="salsa-s">S</span>SALSA</div>▼
   </div>
-  <div class="submenu" id="salsa">
+  <div class="submenu" id="salsa-menu">
     <a href="capacitaciones-salsa.html">Capacitaciones</a>
     <a href="tutoriales-salsa.html">Tutoriales</a>
     <a href="reglas-salsa.html">Reglas SALSA</a>
     <a href="herramientas-salsa.html">Herramientas</a>
   </div>
+
   <div class="menu-item logout" onclick="logout()">
     <div class="menu-left"><i class="fa-solid fa-right-from-bracket"></i>Salir</div>
   </div>
@@ -316,17 +252,14 @@ body { margin:0; font-family:'Georgia',serif; background:#0a0a0a; color:#eaeaea;
         <div class="slide"><div class="card-impact"><h3>Conversión</h3><p>La tasa de conversión en Match es una de las métricas más importantes.<br><br>Entre más usuarios conviertas a llamadas, mejor será tu posicionamiento.</p></div></div>
         <div class="slide"><div class="card-impact"><h3>Retención</h3><p>La retención en llamadas también influye directamente.<br><br>Llamadas más largas hacen que la app te envíe usuarios más conversacionales.</p></div></div>
         <div class="slide"><div class="card-impact"><h3>Ingresos</h3><p>La generación de monedas es clave.<br><br>Entre más dinero generes, mayor será tu visibilidad dentro de la plataforma.</p></div></div>
-        <div class="slide"><div class="card-impact"><h3>Visibilidad</h3><p>Un buen rendimiento puede posicionarte en rankings, tabla de líderes y secciones destacadas.</p></div></div>
-        <div class="slide"><div class="card-impact"><h3>Calificación</h3><p>El sistema de calificación también influye directamente en el algoritmo.</p></div></div>
-        <div class="slide"><div class="card-impact"><h3>Tiempo de Conexión</h3><p>El tiempo de conexión continua es clave.<br><br>Entrar y salir constantemente de la app afecta negativamente tu posicionamiento.</p></div></div>
-        <div class="slide"><div class="card-impact"><h3>Constancia</h3><p>La constancia en los días de conexión influye directamente.<br><br>Entre más días te conectes, mejor será tu algoritmo. Un mejor algoritmo significa mejores ganancias.</p></div></div>
+        <div class="slide"><div class="card-impact"><h3>Visibilidad</h3><p>Un buen rendimiento puede posicionarte en rankings y secciones destacadas.</p></div></div>
+        <div class="slide"><div class="card-impact"><h3>Constancia</h3><p>La constancia en los días de conexión influye directamente.<br><br>Entre más días te conectes, mejor será tu algoritmo.</p></div></div>
       </div>
     </div>
   </div>
 </section>
 
 <script>
-// SCRIPTS MANTENIDOS INTEGRALMENTE
 const PASSWORD = "fairy2025";
 const DURACION = 3 * 60 * 60 * 1000;
 
@@ -337,13 +270,12 @@ function toggleMenu(){
 
 function toggleSub(id){
   const el = document.getElementById(id);
-  el.style.maxHeight = el.style.maxHeight ? null : el.scrollHeight + "px";
+  const isOpened = el.style.maxHeight;
+  document.querySelectorAll('.submenu').forEach(s => s.style.maxHeight = null);
+  el.style.maxHeight = isOpened ? null : el.scrollHeight + "px";
 }
 
-function logout(){
-  localStorage.clear();
-  window.location.href = "zona-streamer.html";
-}
+function logout(){ localStorage.clear(); window.location.href = "zona-streamer.html"; }
 
 function checkPassword(){
   if (document.getElementById('passInput').value === PASSWORD) {
@@ -358,7 +290,6 @@ function checkSession(){
   const access = localStorage.getItem("fairyAccess");
   const time = localStorage.getItem("fairyTime");
   if (!access || !time || (Date.now() - parseInt(time) > DURACION)) {
-    localStorage.clear();
     document.getElementById("passwordModal").style.display = "flex";
     return;
   }
@@ -370,7 +301,6 @@ let indices = { publica: 0, privada: 0, calif: 0, algo: 0 };
 
 function moveSlider(section, direction) {
   const container = document.getElementById(`slides-${section}`);
-  if (!container) return;
   const total = container.children.length;
   indices[section] += direction;
   if (indices[section] < 0) indices[section] = 0;
@@ -382,11 +312,10 @@ function showTab(tab) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.content-area').forEach(a => a.style.display = 'none');
   document.getElementById('subtabs-video').style.display = 'none';
-  
   if(tab === 'video') {
     document.getElementById('t-video').classList.add('active');
     document.getElementById('subtabs-video').style.display = 'flex';
-    showSubVideo('publica');
+    document.getElementById('section-publica').style.display = 'block';
   } else if(tab === 'calif') {
     document.getElementById('t-calif').classList.add('active');
     document.getElementById('section-calif').style.display = 'block';
@@ -394,14 +323,12 @@ function showTab(tab) {
     document.getElementById('t-algo').classList.add('active');
     document.getElementById('section-algo').style.display = 'block';
   }
-  resetAllSliders();
 }
 
 function showSubVideo(sub) {
   document.querySelectorAll('.subtab').forEach(s => s.classList.remove('active'));
   document.getElementById('section-publica').style.display = 'none';
   document.getElementById('section-privada').style.display = 'none';
-  
   if(sub === 'publica') {
     document.getElementById('st-publica').classList.add('active');
     document.getElementById('section-publica').style.display = 'block';
@@ -409,16 +336,9 @@ function showSubVideo(sub) {
     document.getElementById('st-privada').classList.add('active');
     document.getElementById('section-privada').style.display = 'block';
   }
-  resetAllSliders();
-}
-
-function resetAllSliders() {
-  for (let key in indices) { indices[key] = 0; }
-  document.querySelectorAll('.slides').forEach(s => { s.style.transform = 'translateX(0)'; });
 }
 
 window.onload = checkSession;
 </script>
 </body>
-                                                                                                                                                  </html>
-                                                                                                                                                  
+</html>
