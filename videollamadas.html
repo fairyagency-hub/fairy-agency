@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
-/* CSS ESTRUCTURAL PRESERVADO */
+/* 1. CSS ESTRUCTURAL PRESERVADO Y CORREGIDO */
 body { margin:0; font-family:'Georgia',serif; background:#0a0a0a; color:#eaeaea; overflow:hidden; height: 100vh; }
 
 .header { display:flex; align-items:center; gap:12px; position:absolute; top:25px; left:20px; z-index:2001; }
@@ -41,7 +41,7 @@ body { margin:0; font-family:'Georgia',serif; background:#0a0a0a; color:#eaeaea;
 .pagina { display:none; height:100vh; width:100vw; }
 .pagina.activa { display:block; }
 
-/* TABS PRINCIPALES */
+/* TABS PRINCIPALES - DISTRIBUCIÓN MEJORADA */
 .tabs {
   display:flex;
   justify-content: space-around;
@@ -71,32 +71,29 @@ body { margin:0; font-family:'Georgia',serif; background:#0a0a0a; color:#eaeaea;
 .subtab { padding:10px 20px; border-radius:25px; background:#1a1a1a; cursor:pointer; font-size:14px; color:#888; border: 1px solid #333; }
 .subtab.active { background:#ffd700; color:#000; font-weight:bold; border-color: #ffd700; }
 
-/* 1. AJUSTE DE ALTURA Y POSICIÓN (ACTUALIZADO) */
+/* SLIDER CONTAINER - AJUSTE DE ALTURA */
 .slider-container {
-  height: calc(100vh - 180px);
+  height: calc(100vh - 220px);
   width: 100vw;
   position: relative;
-  margin-top: 0px;
+  margin-top: 10px;
   overflow: hidden;
-  display: flex;
-  align-items: center;
 }
-
 .slides { display:flex; transition:0.5s cubic-bezier(0.25, 1, 0.5, 1); height:100%; }
 
-/* CENTRAR TARJETAS */
+/* SOLUCIÓN VISUAL: Centrado específico para tarjetas */
 .slide {
   min-width:100vw;
   width:100vw;
   height:100%;
   display:flex;
   justify-content:center;
-  align-items:center;
+  align-items: center; /* ESTO CENTRA LAS TARJETAS VERTICALMENTE */
   flex-shrink:0;
   position: relative;
 }
 
-/* TARJETAS PREMIUM */
+/* TARJETAS PREMIUM REFORMADAS */
 .card-impact {
   background: linear-gradient(135deg, #fffaf0 0%, #f2e6d0 100%);
   color: #1a1a1a;
@@ -105,19 +102,34 @@ body { margin:0; font-family:'Georgia',serif; background:#0a0a0a; color:#eaeaea;
   text-align: center;
   width: 92%;
   max-width: 400px;
-  min-height: 320px;
+  min-height: 320px; /* Altura mínima para que se vean importantes */
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: center; /* Centra el texto interno de la card */
   box-shadow: 0 30px 70px rgba(0,0,0,0.9);
   border: 3px solid #b8930d;
   box-sizing: border-box;
-  position: relative;
 }
-.card-impact h3 { font-size: 20px; color: #8a6d0a; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1.5px; border-bottom: 2px solid #b8930d; padding-bottom: 15px; }
-.card-impact p { font-size: 16px; line-height: 1.7; font-weight: 600; color: #444; margin: 0; }
 
-/* BOTONES INTERACTIVOS */
+.card-impact h3 { 
+  font-size: 20px; 
+  color: #8a6d0a; 
+  margin-bottom: 25px; 
+  text-transform: uppercase; 
+  letter-spacing: 1.5px; 
+  border-bottom: 2px solid #b8930d; 
+  padding-bottom: 15px; 
+}
+
+.card-impact p { 
+  font-size: 16px; 
+  line-height: 1.7; 
+  font-weight: 600; 
+  color: #444; 
+  margin: 0; 
+}
+
+/* BOTONES PROFESIONALES */
 .btn-action {
   display: inline-flex;
   align-items: center;
@@ -148,7 +160,7 @@ body { margin:0; font-family:'Georgia',serif; background:#0a0a0a; color:#eaeaea;
   100% { transform: scale(1); }
 }
 
-/* FLECHAS */
+/* FLECHAS DE NAVEGACIÓN */
 .arrow {
   position: absolute;
   bottom: 15px;
@@ -170,7 +182,13 @@ body { margin:0; font-family:'Georgia',serif; background:#0a0a0a; color:#eaeaea;
 .arrow.left { left: 25%; }
 .arrow.right { right: 25%; }
 
-.img-full { height: 75vh; max-width: 92%; border-radius: 12px; object-fit: contain; }
+/* AJUSTE PARA IMÁGENES COMPLETAS */
+.img-full { 
+  height: 75vh; /* Ocupa la mayor parte del alto disponible */
+  max-width: 92%; 
+  border-radius: 12px; 
+  object-fit: contain; /* Asegura que la imagen no se corte */
+}
 </style>
 </head>
 
@@ -252,6 +270,7 @@ body { margin:0; font-family:'Georgia',serif; background:#0a0a0a; color:#eaeaea;
         <div class="slide"><div class="card-impact"><h3>Restricciones</h3><p>Las llamadas públicas están dentro de zonas monitoreadas y restringidas.<br><br>Siempre debes respetar las normas de la plataforma, incluso si el usuario solicita otro tipo de contenido.</p><a href="reglas-salsa.html" class="btn-action"><i class="fa-solid fa-hand-pointer"></i> Ver reglas de la plataforma</a></div></div>
         <div class="slide"><div class="card-impact"><h3>Importante</h3><p>Zona pública no significa que muchas personas estén viendo la llamada.<br><br>Significa que es una zona supervisada y controlada dentro de la aplicación.</p></div></div>
         <div class="slide"><div class="card-impact"><h3>Monetización</h3><p>En las llamadas públicas también se pueden recibir regalos por parte de los usuarios.<br><br>Esto aumenta directamente las ganancias generadas durante la llamada.</p></div></div>
+        <div class="slide"><img src="https://i.postimg.cc/7hxLsbQt/Pública_vs_privada.jpg" class="img-full"></div>
       </div>
     </div>
   </div>
@@ -266,6 +285,7 @@ body { margin:0; font-family:'Georgia',serif; background:#0a0a0a; color:#eaeaea;
         <div class="slide"><div class="card-impact"><h3>Normas básicas</h3><p>Aunque la app no monitorea esta zona, siempre se deben respetar reglas básicas:<br><br>- No menores<br>- No animales<br>- No compartir datos privados (redes sociales, cuentas bancarias, etc)</p><a href="reglas-salsa.html" class="btn-action"><i class="fa-solid fa-hand-pointer"></i> Ver reglas completas</a></div></div>
         <div class="slide"><div class="card-impact"><h3>Monetización</h3><p>En las llamadas privadas también se pueden recibir regalos.<br><br>Esto incrementa aún más la monetización de cada sesión.</p></div></div>
         <div class="slide"><div class="card-impact"><h3>Rendimiento</h3><p>Entre más tiempo duren las llamadas y mayor sea la generación de monedas, mejor será tu posicionamiento dentro del algoritmo de la plataforma.</p></div></div>
+        <div class="slide"><img src="https://i.postimg.cc/7hxLsbQt/Pública_vs_privada.jpg" class="img-full"></div>
       </div>
     </div>
   </div>
@@ -292,13 +312,13 @@ body { margin:0; font-family:'Georgia',serif; background:#0a0a0a; color:#eaeaea;
       <div class="arrow left" onclick="moveSlider('algo', -1)">❮</div>
       <div class="arrow right" onclick="moveSlider('algo', 1)">❯</div>
       <div class="slides" id="slides-algo">
-        <div class="slide"><div class="card-impact"><h3>Métricas</h3><p>Salsa utiliza múltiples métricas para posicionar a las streamers dentro de la plataforma.</p></div></div>
+        <div class="slide"><div class="card-impact"><h3>Funcionamiento</h3><p>Salsa utiliza múltiples métricas para posicionar a las streamers dentro de la plataforma.</p></div></div>
         <div class="slide"><div class="card-impact"><h3>Conversión</h3><p>La tasa de conversión en Match es una de las métricas más importantes.<br><br>Entre más usuarios conviertas a llamadas, mejor será tu posicionamiento.</p></div></div>
         <div class="slide"><div class="card-impact"><h3>Retención</h3><p>La retención en llamadas también influye directamente.<br><br>Llamadas más largas hacen que la app te envíe usuarios más conversacionales.</p></div></div>
         <div class="slide"><div class="card-impact"><h3>Ingresos</h3><p>La generación de monedas es clave.<br><br>Entre más dinero generes, mayor será tu visibilidad dentro de la plataforma.</p></div></div>
-        <div class="slide"><div class="card-impact"><h3>Rankings</h3><p>Un buen rendimiento puede posicionarte en rankings, tabla de líderes y secciones destacadas.</p></div></div>
+        <div class="slide"><div class="card-impact"><h3>Visibilidad</h3><p>Un buen rendimiento puede posicionarte en rankings, tabla de líderes y secciones destacadas.</p></div></div>
         <div class="slide"><div class="card-impact"><h3>Calificación</h3><p>El sistema de calificación también influye directamente en el algoritmo.</p></div></div>
-        <div class="slide"><div class="card-impact"><h3>Conexión</h3><p>El tiempo de conexión continua es clave.<br><br>Entrar y salir constantemente de la app afecta negativamente tu posicionamiento.</p></div></div>
+        <div class="slide"><div class="card-impact"><h3>Tiempo de Conexión</h3><p>El tiempo de conexión continua es clave.<br><br>Entrar y salir constantemente de la app afecta negativamente tu posicionamiento.</p></div></div>
         <div class="slide"><div class="card-impact"><h3>Constancia</h3><p>La constancia en los días de conexión influye directamente.<br><br>Entre más días te conectes, mejor será tu algoritmo. Un mejor algoritmo significa mejores ganancias.</p></div></div>
       </div>
     </div>
@@ -306,6 +326,7 @@ body { margin:0; font-family:'Georgia',serif; background:#0a0a0a; color:#eaeaea;
 </section>
 
 <script>
+// SCRIPTS MANTENIDOS INTEGRALMENTE
 const PASSWORD = "fairy2025";
 const DURACION = 3 * 60 * 60 * 1000;
 
@@ -399,4 +420,5 @@ function resetAllSliders() {
 window.onload = checkSession;
 </script>
 </body>
-</html>
+                                                                                                                                                  </html>
+                                                                                                                                                  
