@@ -213,6 +213,15 @@ h2 { color:#ffd700; margin-bottom:15px; }
   font-size:12px;
 }
 
+/* AVISO RELOJ */
+.aviso-reloj {
+  font-size: 12px;
+  color: #aaa;
+  margin-top: 6px;
+  text-align: center;
+  line-height: 1.2;
+}
+
 /* CONTENIDO */
 .pagina {
   max-width:960px;
@@ -237,12 +246,48 @@ h1 {
   color:#aaa; 
 }
 
+/* NUEVO BLOQUE DESTACADO */
+.bloque-empieza {
+    width: 100%;
+    background: #111;
+    border: 2px solid #ffd700;
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 20px;
+    text-align: center;
+    box-sizing: border-box;
+    margin-top: 30px;
+}
+
+.bloque-empieza h2 {
+    color: #ffd700;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.bloque-empieza p {
+    color: #eaeaea;
+    margin-bottom: 20px;
+}
+
+.btn-comenzar {
+    background: #ffd700;
+    color: black;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
 /* GRID */
 .grid {
   display:grid;
   grid-template-columns:repeat(2,1fr);
   gap:16px;
-  margin-top:30px;
+  margin-top:20px;
 }
 
 .card {
@@ -272,7 +317,6 @@ h1 {
 
 <body>
 
-<!-- HEADER -->
 <div class="header">
   <div class="menu-btn" onclick="toggleMenu()">
     <i class="fa-solid fa-bars"></i>
@@ -280,7 +324,6 @@ h1 {
   <img src="https://i.postimg.cc/fLhtVJy2/1774069732194.png" class="logo">
 </div>
 
-<!-- SIDEBAR -->
 <div class="sidebar" id="sidebar">
 
   <img src="https://i.postimg.cc/fLhtVJy2/1774069732194.png" class="logo-menu">
@@ -339,7 +382,6 @@ h1 {
 
 <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
-<!-- MODAL PASSWORD -->
 <div id="passwordModal">
   <div class="modal-content">
     <img src="https://i.postimg.cc/fLhtVJy2/1774069732194.png">
@@ -349,7 +391,6 @@ h1 {
   </div>
 </div>
 
-<!-- RELOJ -->
 <div class="reloj-salsa">
   <div class="titulo-reloj">⏰ Mi Horario Salsa</div>
   <div class="reloj-grid">
@@ -384,13 +425,19 @@ h1 {
       <div class="hora" id="horaLocal"></div>
     </div>
   </div>
+  <div class="aviso-reloj">Puedes seleccionar tu país para ver horarios de corte y capacitaciones</div>
 </div>
 
-<!-- CONTENIDO -->
 <section class="pagina" id="mainContent">
 
   <h1>SALSA</h1>
   <p class="sub">Panel exclusivo para streamers SALSA</p>
+
+  <div class="bloque-empieza">
+      <h2>Empieza aquí</h2>
+      <p>Aprende cómo usar SALSA paso a paso</p>
+      <a href="nuevo-empieza.html" class="btn-comenzar">COMENZAR</a>
+  </div>
 
   <div class="grid">
     <a href="capacitaciones-salsa.html" class="card"><i class="fa-solid fa-book-open"></i>Capacitaciones</a>
