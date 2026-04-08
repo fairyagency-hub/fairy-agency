@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Centro Streamer — Fairy Agency</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body { 
+            margin:0; 
+            font-family:'Georgia', serif; 
+            background:#0a0a0a; 
+            color:#eaeaea; 
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        /* HEADER & SIDEBAR */
+        .header {
+            display:flex; align-items:center; gap:12px;
+            position:fixed; top:25px; left:20px; z-index:2001;
+        }
+        .menu-btn { font-size:24px; color:#ffd700; cursor:pointer; }
+        .logo { width:85px; filter: brightness(1.15); }
+
+        .sidebar {
+            position:fixed; top:0; left:0; width:260px; height:100%;
+            background:#111; padding:100px 18px 20px;
+            transform:translateX(-100%); transition:0.3s ease; z-index:3000;
+        }
+        .sidebar.active { transform:translateX(0); }
+        .logo-menu { width:140px; display:block; margin:0 auto 30px; filter: brightness(1.15); }
+        .menu-item { display:flex; justify-content:space-between; align-items:center; padding:10px 12px; border-radius:10px; cursor:pointer; }
+        .menu-item:hover { background:#222; }
+        .menu-left { display:flex; align-items:center; gap:10px; }
+        .menu-left i { color:#ffd700; }
+        .salsa-s { color:#ffd700 !important; font-size:24px; font-weight:bold; }
+        .submenu-sidebar { max-height:0; overflow:hidden; transition:0.3s; padding-left:28px; }
+        .submenu-sidebar a { display:block; padding:6px 0; color:#ccc; text-decoration:none; }
+        .overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); opacity:0; visibility:hidden; transition:0.3s; z-index:2500; }
+        .overlay.active { opacity:1; visibility:visible; }
+
+        /* SECURITY MODAL */
+        #passwordModal { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.98); display:flex; align-items:center; justify-content:center; z-index:4000; }
+        .modal-content { background:#111; padding:40px 30px; border-radius:20px; text-align:center; max-width:340px; width:90%; }
+        .modal-content img { width:180px; margin-bottom:25px; }
+        h2 { color:#ffd700; margin-bottom:15px; }
+        #passInput { width:100%; padding:15px; background:#222; border:none; border-radius:10px; color:white; margin:15px 0; text-align:center; }
+        .btn-entrar { background:#ffd700; color:black; padding:14px 50px; border:none; border-radius:10px; font-weight:bold; cursor:pointer; }
+
+        /* APP VIEWPORT */
+        .app-container {
+            height: 100vh;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .app-container.active { display: flex; }
+
+        .view-title { color:#ffd700; font-size: 26px; text-align: center; margin-top: 80px; margin-bottom: 5px; }
+        .view-subtext { color:#aaa; font-size: 14px; text-align: center; margin-bottom: 15px; }
+
+        /* DESCRIPCIÓN SOBRE IMAGEN */
+        .img-desc {
+            color: #d1d1d1;
+            font-size: 13.5px;
+            text-align: center;
+            margin-bottom: 12px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-width: 320px;
+            line-height: 1.3;
+        }
+
+        /* CARRUSEL */
+        .carousel-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 380px;
+            height: 60vh;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid #333;
+        }
+        .carousel-track {
+            display: flex;
+            height: 100%;
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+        }
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* NAVIGATION */
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 215, 0, 0.15);
+            color: #ffd700;
+            border: 1px solid #ffd700;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+        }
+        .prev-arrow { left: 8px; }
+        .next-arrow { right: 8px; }
+
+        .pagination-dot {
+            text-align: center;
+            margin-top: 10px;
+            color: #ffd700;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        /* ACCIONES */
+        .action-container {
+            margin-top: 15px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+        .btn-action {
+            background: transparent;
+            border: 1px solid #ffd700;
+            color: #ffd700;
+            padding: 8px 18px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            display: none;
+            animation: fadeIn 0.3s forwards;
+        }
+        .btn-volver {
+            margin-top: 5px;
+            color: #ff4d4d;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 13px;
+            display: none;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></div>
+    <img src="https://i.postimg.cc/fLhtVJy2/1774069732194.png" class="logo">
+</div>
+
+<div class="sidebar" id="sidebar">
+    <img src="https://i.postimg.cc/fLhtVJy2/1774069732194.png" class="logo-menu">
+    <div class="menu-item" onclick="toggleSub('inicio')"><div class="menu-left"><i class="fa-solid fa-house"></i>Inicio</div>▼</div>
+    <div class="submenu-sidebar" id="inicio">
+        <a href="zona-streamer.html">Zona Streamer</a>
+        <a href="fairy-academy.html">Fairy Academy</a>
+        <a href="salsa.html">SALSA</a>
+    </div>
+    <div class="menu-item" onclick="logout()" style="color:#ff4d4d; margin-top:20px;"><div class="menu-left"><i class="fa-solid fa-right-from-bracket"></i>Salir</div></div>
+</div>
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+<div id="passwordModal">
+    <div class="modal-content">
+        <img src="https://i.postimg.cc/fLhtVJy2/1774069732194.png" width="150">
+        <h2>Centro Streamer</h2>
+        <input type="password" id="passInput" placeholder="Contraseña">
+        <button onclick="checkPassword()" class="btn-entrar">Entrar</button>
+    </div>
+</div>
+
+<div id="mainView" class="app-container">
+    <h1 class="view-title">Centro Streamer</h1>
+    <p class="view-subtext">Guía de funciones principales</p>
+
+    <div class="img-desc" id="mainImgDesc">Aquí puedes ver tus ganancias del día</div>
+
+    <div class="carousel-wrapper" id="mainCarousel">
+        <div class="nav-arrow prev-arrow" onclick="moveSlide(-1, 'main')"><i class="fa-solid fa-chevron-left"></i></div>
+        <div class="nav-arrow next-arrow" onclick="moveSlide(1, 'main')"><i class="fa-solid fa-chevron-right"></i></div>
+        <div class="carousel-track" id="mainTrack">
+            <div class="slide"><img src="https://i.postimg.cc/Nfzsz1XK/1-Ganancia-diaria.jpg"></div>
+            <div class="slide"><img src="https://i.postimg.cc/Hk8YDV0p/2-Conteo-match.jpg"></div>
+            <div class="slide"><img src="https://i.postimg.cc/L8g9Knk9/3-Invitar-streamer-boton.jpg"></div>
+            <div class="slide"><img src="https://i.postimg.cc/SxYSFJLq/4-Ganancia-y-estadistica-boton.jpg"></div>
+            <div class="slide"><img src="https://i.postimg.cc/t4nqQYdT/5-Bono-Match-diario.jpg"></div>
+            <div class="slide"><img src="https://i.postimg.cc/Z5vbtCPn/6-Penalizaciones.jpg"></div>
+            <div class="slide"><img src="https://i.postimg.cc/CxnhTzCR/7-Transferencia-de-dinero.jpg"></div>
+            <div class="slide"><img src="https://i.postimg.cc/K83GSR7K/8-Mi-perfil-boton.jpg"></div>
+            <div class="slide"><img src="https://i.postimg.cc/yY0VSYsN/9-modo-encuentrame.png"></div>
+            <div class="slide"><img src="https://i.postimg.cc/MK1WjKqT/9-1.png"></div>
+        </div>
+    </div>
+    
+    <div class="pagination-dot" id="mainPagination">1 / 10</div>
+
+    <div class="action-container">
+        <button id="btn-2" class="btn-action" onclick="openSubView('view3')">Ver cómo usar Invitar streamer</button>
+        <button id="btn-3" class="btn-action" onclick="openSubView('view4')">Explorar Ganancias y Estadísticas</button>
+        <button id="btn-4" class="btn-action" onclick="openSubView('view5')">Ver Bonos de Match</button>
+        <button id="btn-5" class="btn-action" onclick="openSubView('view6')">Ver Penalizaciones</button>
+        <button id="btn-6" class="btn-action" onclick="openSubView('view7')">Guía de Transferencia</button>
+    </div>
+</div>
+
+<div id="subView" class="app-container" style="background: #050505;">
+    <h1 id="subViewTitle" class="view-title">Guía Detallada</h1>
+    <div class="img-desc" id="subImgDesc">Cargando guía...</div>
+
+    <div class="carousel-wrapper">
+        <div class="nav-arrow prev-arrow" onclick="moveSlide(-1, 'sub')"><i class="fa-solid fa-chevron-left"></i></div>
+        <div class="nav-arrow next-arrow" onclick="moveSlide(1, 'sub')"><i class="fa-solid fa-chevron-right"></i></div>
+        <div class="carousel-track" id="subTrack"></div>
+    </div>
+    <div class="pagination-dot" id="subPagination">1 / 1</div>
+    <div class="action-container" id="subActionContainer"></div>
+    <button class="btn-volver" id="btnVolverGeneral" onclick="closeSubView()" style="display:block;">✕ Volver al menú principal</button>
+</div>
+
+<script>
+    const mainDescriptions = [
+        "Aquí puedes ver tus ganancias del día",
+        "Aquí puedes ver la cantidad de matches",
+        "Accede a invitar streamer",
+        "Aquí encontrarás tus estadísticas",
+        "Consulta tu bono match diario",
+        "Revisa tus penalizaciones",
+        "Realiza transferencias",
+        "Accede a tu perfil",
+        "Configura el modo Encuéntrame",
+        "Finaliza la configuración de visibilidad"
+    ];
+
+    const subData = {
+        view3: { 
+            title: "Invitar Streamer", 
+            descs: ["Pantalla principal de invitación", "Monitoreo de tus referidos"],
+            imgs: ["https://i.postimg.cc/xTnLrLbd/3-1-pantalla-invitar-streamer.png", "https://i.postimg.cc/vHb5R56H/3-2-monitoreo-de-referido.png"] 
+        },
+        view4: { 
+            title: "Ganancias y Estadísticas", 
+            descs: ["Vista de ingresos 1", "Vista de ingresos 2", "Vista de ingresos 3", "Vista de ingresos 4", "Vista de ingresos 5", "Sección de detalles 4.2", "Sección de detalles 4.3", "Sección de detalles 4.4", "Sección de detalles 4.5"],
+            imgs: ["https://i.postimg.cc/W3gLZdjJ/4-1-1.png", "https://i.postimg.cc/xCMDmXYz/4-1-2.png", "https://i.postimg.cc/tTWQ6syn/4-1-3.png", "https://i.postimg.cc/s2SGMJBP/4-1-4.png", "https://i.postimg.cc/hGxQX0J1/4-1-5.png", "https://i.postimg.cc/s2SGMJBp/4-2.png", "https://i.postimg.cc/zfWHykLT/4-3.png", "https://i.postimg.cc/FKckYxf3/4-4.png", "https://i.postimg.cc/PqZvCMLZ/4-5.png"],
+            innerActions: {
+                5: { text: "Ver detalles 4.2", action: "openInner('4.2')" },
+                6: { text: "Ver detalles 4.3", action: "openInner('4.3')" },
+                7: { text: "Ver detalles 4.4", action: "openInner('4.4')" },
+                8: { text: "Ver detalles 4.5", action: "openInner('4.5')" }
+            }
+        },
+        view4_2: { 
+            title: "Detalle 4.2", 
+            descs: ["Guía paso 1", "Guía paso 2", "Guía paso 3", "Guía paso 4", "Guía paso 5", "Guía paso 6"],
+            imgs: ["https://i.postimg.cc/yNyKkJTj/4-2-1.png", "https://i.postimg.cc/R0LmN3TR/4-2-2.png", "https://i.postimg.cc/R0LmN3TG/4-2-3.png", "https://i.postimg.cc/SKf4JXGG/4-2-4.png", "https://i.postimg.cc/Ls3SnqVQ/4-2-5.png", "https://i.postimg.cc/yNyKkJTQ/4-2-6.png"] 
+        },
+        view4_3: { 
+            title: "Detalle 4.3", 
+            descs: ["Estadística detallada 1", "Estadística detallada 2", "Estadística detallada 3"],
+            imgs: ["https://i.postimg.cc/3w5LznmB/4-3-1.png", "https://i.postimg.cc/1zhWbJwv/4-3-2.png", "https://i.postimg.cc/3w5Lznmn/4-3-3.png"] 
+        },
+        view4_4: { 
+            title: "Detalle 4.4", 
+            descs: ["Análisis de datos 1", "Análisis de datos 2", "Análisis de datos 3", "Análisis de datos 4"],
+            imgs: ["https://i.postimg.cc/5tWh8w9D/4-4-1.png", "https://i.postimg.cc/YSB5Q12J/4-4-2.png", "https://i.postimg.cc/DzQt68m6/4-4-3.png", "https://i.postimg.cc/nLfyqvVg/4-4-4.png"] 
+        },
+        view4_5: { 
+            title: "Detalle 4.5", 
+            descs: ["Métrica final 1", "Métrica final 2", "Métrica final 3", "Métrica final 4"],
+            imgs: ["https://i.postimg.cc/C58CCfxL/4-5-1.png", "https://i.postimg.cc/brn002wv/4-5-2.png", "https://i.postimg.cc/Y0FNNmCC/4-5-3.png", "https://i.postimg.cc/j2f66JS5/4-5-4.png"] 
+        },
+        view5: { 
+            title: "Bono Match Diario", 
+            descs: ["Cómo funciona el bono", "Requisitos 1", "Requisitos 2", "Progreso diario", "Premios", "Cobro de bonos", "Historial", "Tips de bono"],
+            imgs: ["https://i.postimg.cc/B6PLK9hs/5-1.png", "https://i.postimg.cc/3R04v5LH/5-2.png", "https://i.postimg.cc/FRkdL5P4/5-3.png", "https://i.postimg.cc/Hx8cyDSm/5-4.png", "https://i.postimg.cc/QCLBg4zR/5-5.png", "https://i.postimg.cc/PJGLb3cG/5-6.png", "https://i.postimg.cc/qqftcbYH/5-7.png", "https://i.postimg.cc/mkxc3Xqs/5-8.png"] 
+        },
+        view6: { title: "Penalizaciones", descs: ["Revisa tus penalizaciones"], imgs: ["https://i.postimg.cc/2yXKXWQB/6-1.png"] },
+        view7: { 
+            title: "Transferencia", 
+            descs: ["Inicio de retiro", "Métodos disponibles", "Configuración Wallet", "Confirmación", "Proceso de envío", "Verificación", "Estado de pago", "Comprobante"],
+            imgs: ["https://i.postimg.cc/Kzt9DVzV/7-1.png", "https://i.postimg.cc/fyZ82Ktr/7-2.png", "https://i.postimg.cc/90VL8pRN/7-3.png", "https://i.postimg.cc/pTK0J7rv/7-4.png", "https://i.postimg.cc/G2vMxNtC/7-5.png", "https://i.postimg.cc/9MyxYSMK/7-6.png", "https://i.postimg.cc/zBTdFMBs/7-7.png", "https://i.postimg.cc/V6X7WT62/7-8.png"] 
+        }
+    };
+
+    let mainIdx = 0; let subIdx = 0; let currentSubKey = '';
+
+    function moveSlide(dir, type) {
+        if(type === 'main') {
+            const track = document.getElementById('mainTrack');
+            mainIdx = (mainIdx + dir + 10) % 10;
+            track.style.transform = `translateX(-${mainIdx * 100}%)`;
+            document.getElementById('mainPagination').textContent = `${mainIdx + 1} / 10`;
+            document.getElementById('mainImgDesc').textContent = mainDescriptions[mainIdx];
+            updateButtons(mainIdx);
+        } else {
+            const data = subData[currentSubKey];
+            subIdx = (subIdx + dir + data.imgs.length) % data.imgs.length;
+            document.getElementById('subTrack').style.transform = `translateX(-${subIdx * 100}%)`;
+            document.getElementById('subPagination').textContent = `${subIdx + 1} / ${data.imgs.length}`;
+            document.getElementById('subImgDesc').textContent = data.descs[subIdx] || "Guía del Centro Streamer";
+            updateInnerButtons(subIdx);
+        }
+    }
+
+    function updateButtons(idx) {
+        document.querySelectorAll('.btn-action').forEach(b => b.style.display = 'none');
+        if(idx >= 2 && idx <= 6) document.getElementById(`btn-${idx}`).style.display = 'block';
+    }
+
+    function openSubView(key) {
+        currentSubKey = key; subIdx = 0;
+        const data = subData[key];
+        document.getElementById('subViewTitle').textContent = data.title;
+        document.getElementById('subImgDesc').textContent = data.descs[0];
+        const track = document.getElementById('subTrack');
+        track.innerHTML = data.imgs.map(src => `<div class="slide"><img src="${src}"></div>`).join('');
+        track.style.transform = `translateX(0)`;
+        document.getElementById('subPagination').textContent = `1 / ${data.imgs.length}`;
+        document.getElementById('mainView').classList.remove('active');
+        document.getElementById('subView').classList.add('active');
+        updateInnerButtons(0);
+    }
+
+    function updateInnerButtons(idx) {
+        const container = document.getElementById('subActionContainer');
+        container.innerHTML = '';
+        const data = subData[currentSubKey];
+        if(data.innerActions && data.innerActions[idx]) {
+            const info = data.innerActions[idx];
+            container.innerHTML = `<button class="btn-action" style="display:block;" onclick="${info.action}">${info.text}</button>`;
+        }
+    }
+
+    function openInner(code) { openSubView('view' + code.replace('.', '_')); }
+    function closeSubView() { document.getElementById('subView').classList.remove('active'); document.getElementById('mainView').classList.add('active'); }
+    function toggleMenu(){ document.getElementById("sidebar").classList.toggle("active"); document.getElementById("overlay").classList.toggle("active"); }
+    function toggleSub(id){ const el = document.getElementById(id); el.style.maxHeight = el.style.maxHeight ? null : el.scrollHeight + "px"; }
+    
+    const PASSWORD = "fairy2025";
+    function checkPassword(){
+        if (document.getElementById('passInput').value === PASSWORD) {
+            localStorage.setItem("fairyAccess", "true");
+            localStorage.setItem("fairyTime", Date.now());
+            document.getElementById("passwordModal").style.display = "none";
+            document.getElementById("mainView").classList.add("active");
+        } else { alert("Contraseña incorrecta"); }
+    }
+
+    window.onload = () => {
+        const access = localStorage.getItem("fairyAccess");
+        const time = localStorage.getItem("fairyTime");
+        if (access && (Date.now() - parseInt(time) < 3 * 60 * 60 * 1000)) {
+            document.getElementById("passwordModal").style.display = "none";
+            document.getElementById("mainView").classList.add("active");
+        }
+    };
+    function logout(){ localStorage.clear(); location.reload(); }
+</script>
+</body>
+  </html>
+  
