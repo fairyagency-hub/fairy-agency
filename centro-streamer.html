@@ -97,38 +97,6 @@
             text-align: center;
         }
         #btnContactoModal:hover { background: rgba(37,211,102,0.08); }
-        /* Banner de bienvenida */
-        /* Toast de bienvenida — pantalla completa */
-        #welcomeToast {
-            position: fixed;
-            inset: 0;
-            background: #0a0a0a;
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 5000;
-            opacity: 1;
-            transition: opacity 0.8s ease;
-        }
-        #welcomeToast.fadeout { opacity: 0; }
-        #welcomeToast img {
-            width: 110px;
-            filter: brightness(1.2);
-            margin-bottom: 28px;
-        }
-        #welcomeToast h2 {
-            color: #ffd700;
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-        #welcomeToast p {
-            color: #aaa;
-            font-size: 14px;
-            text-align: center;
-        }
         /* Separador sidebar */
         .menu-separator { border: none; border-top: 1px solid #222; margin: 8px 0; }
         /* Botón WhatsApp sidebar */
@@ -319,13 +287,6 @@
 <!-- ════════════════════════════════════════════
      ❌ NO TOCAR — INICIO LOGIN MODAL
 ════════════════════════════════════════════ -->
-
-<!-- Toast de bienvenida — aparece sobre todo, se desvanece solo -->
-<div id="welcomeToast">
-    <img src="https://i.postimg.cc/fLhtVJy2/1774069732194.png" alt="logo">
-    <h2 id="welcomeText"></h2>
-    <p>Bienvenida al campus Fairy de Fairy Agency.</p>
-</div>
 
 <div id="passwordModal">
     <div class="modal-content">
@@ -529,18 +490,6 @@ const USUARIOS = [
 const DURACION = 3 * 60 * 60 * 1000; // 3 horas
 
 // ─────────────────────────────────────────
-//  BIENVENIDA — toast pantalla completa
-// ─────────────────────────────────────────
-function showWelcomeToast(nombre) {
-    const toast = document.getElementById("welcomeToast");
-    document.getElementById("welcomeText").textContent = nombre;
-    toast.style.display = "flex";
-    // Desvanece a los 2.5s, y se oculta completamente a los 3.3s
-    setTimeout(() => toast.classList.add("fadeout"), 2500);
-    setTimeout(() => { toast.style.display = "none"; toast.classList.remove("fadeout"); }, 3300);
-}
-
-// ─────────────────────────────────────────
 //  LOGIN
 // ─────────────────────────────────────────
 function checkPassword() {
@@ -578,7 +527,6 @@ function checkSession() {
         document.getElementById("passwordModal").style.display = "none";
         document.getElementById("mainContent").style.display   = "block";
         initApp();
-        if (nombre) showWelcomeToast(nombre);
     }
 }
 
