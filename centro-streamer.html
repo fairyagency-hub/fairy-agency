@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Centro Streamer — Fairy Agency</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: 'Georgia', serif;
+            font-family: 'Inter', sans-serif;
             background: #0a0a0a;
             color: #eaeaea;
             overflow: hidden;
@@ -34,35 +35,111 @@
             text-align: center;
             max-width: 340px;
             width: 90%;
+            border: 1px solid #222;
         }
         .modal-content img {
             width: 160px;
             margin-bottom: 20px;
             filter: brightness(1.15);
         }
-        .modal-content h2 { color: #ffd700; margin-bottom: 15px; font-size: 20px; }
+        .modal-content h2 { color: #ffd700; margin-bottom: 6px; font-size: 20px; }
+        .modal-content p { color: #888; font-size: 13px; margin-bottom: 4px; }
         #passInput {
             width: 100%;
             padding: 14px;
             background: #222;
-            border: none;
+            border: 1px solid #333;
             border-radius: 10px;
             color: white;
-            margin: 12px 0;
+            margin: 12px 0 6px;
             text-align: center;
             font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 1px;
         }
+        #passInput:focus { outline: none; border-color: #ffd700; }
         .btn-entrar {
-            background: #ffd700;
+            background: linear-gradient(90deg, #FFD700, #FFA500);
             color: black;
-            padding: 13px 50px;
+            padding: 13px;
             border: none;
             border-radius: 10px;
             font-weight: bold;
             cursor: pointer;
             font-size: 15px;
+            width: 100%;
+            font-family: 'Inter', sans-serif;
+            margin-top: 6px;
         }
-        .btn-entrar:active { background: #e6c200; }
+        .btn-entrar:active { opacity: 0.85; }
+        /* Error de login */
+        #loginError {
+            display: none;
+            color: #ff4d4d;
+            font-size: 13px;
+            margin: 8px 0 4px;
+        }
+        /* Botón contacto en modal */
+        #btnContactoModal {
+            display: none;
+            width: 100%;
+            margin-top: 10px;
+            padding: 11px;
+            background: transparent;
+            border: 1px solid #25d366;
+            border-radius: 10px;
+            color: #25d366;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            text-decoration: none;
+            text-align: center;
+        }
+        #btnContactoModal:hover { background: rgba(37,211,102,0.08); }
+        /* Banner de bienvenida */
+        /* Toast de bienvenida — pantalla completa */
+        #welcomeToast {
+            position: fixed;
+            inset: 0;
+            background: #0a0a0a;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 5000;
+            opacity: 1;
+            transition: opacity 0.8s ease;
+        }
+        #welcomeToast.fadeout { opacity: 0; }
+        #welcomeToast img {
+            width: 110px;
+            filter: brightness(1.2);
+            margin-bottom: 28px;
+        }
+        #welcomeToast h2 {
+            color: #ffd700;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        #welcomeToast p {
+            color: #aaa;
+            font-size: 14px;
+            text-align: center;
+        }
+        /* Separador sidebar */
+        .menu-separator { border: none; border-top: 1px solid #222; margin: 8px 0; }
+        /* Botón WhatsApp sidebar */
+        .menu-item-wa {
+            display: flex; align-items: center; gap: 10px;
+            padding: 10px 12px; border-radius: 10px; cursor: pointer;
+            font-size: 14px; color: #25d366; margin-bottom: 4px;
+            text-decoration: none;
+        }
+        .menu-item-wa:hover { background: rgba(37,211,102,0.08); }
+        .menu-item-wa i { color: #25d366; width: 16px; text-align: center; }
 
         /* ── MAIN CONTENT ── */
         #mainContent { display: none; }
@@ -239,31 +316,64 @@
 </head>
 <body onload="checkSession()">
 
-<!-- ════ LOGIN MODAL ════ -->
+<!-- ════════════════════════════════════════════
+     ❌ NO TOCAR — INICIO LOGIN MODAL
+════════════════════════════════════════════ -->
+
+<!-- Toast de bienvenida — aparece sobre todo, se desvanece solo -->
+<div id="welcomeToast">
+    <img src="https://i.postimg.cc/fLhtVJy2/1774069732194.png" alt="logo">
+    <h2 id="welcomeText"></h2>
+    <p>Bienvenida al campus Fairy de Fairy Agency.</p>
+</div>
+
 <div id="passwordModal">
     <div class="modal-content">
         <img src="https://i.postimg.cc/fLhtVJy2/1774069732194.png" alt="logo">
-        <h2>Centro Streamer</h2>
-        <input type="password" id="passInput" placeholder="Contraseña"
+
+        <h2>Zona Privada</h2>
+        <p>Ingresa tu ID para continuar</p>
+
+        <input type="text" id="passInput" placeholder="Tu ID de acceso"
                onkeydown="if(event.key==='Enter') checkPassword()">
+
+        <div id="loginError">ID incorrecto. Verifica tu número de identificación.</div>
+
         <button class="btn-entrar" onclick="checkPassword()">Entrar</button>
+
+        <a id="btnContactoModal" href="https://wa.me/50370482075" target="_blank">
+            <i class="fa-brands fa-whatsapp"></i> Contactar Agencia
+        </a>
     </div>
 </div>
+<!-- ════════════════════════════════════════════
+     ❌ NO TOCAR — FIN LOGIN MODAL
+════════════════════════════════════════════ -->
 
-<!-- ════ MAIN CONTENT ════ -->
+<!-- ════════════════════════════════════════════
+     ✅ EDITABLE — INICIO CONTENIDO PRINCIPAL
+════════════════════════════════════════════ -->
 <div id="mainContent">
 
-    <!-- HEADER -->
+    <!-- ════ INICIO HEADER ════ -->
     <div class="header">
         <div class="menu-btn" onclick="toggleMenu()">
             <i class="fa-solid fa-bars"></i>
         </div>
         <img src="https://i.postimg.cc/fLhtVJy2/1774069732194.png" class="logo">
     </div>
+    <!-- ════ FIN HEADER ════ -->
 
-    <!-- SIDEBAR -->
+    <!-- ════ INICIO SIDEBAR ════ -->
     <div class="sidebar" id="sidebar">
         <img src="https://i.postimg.cc/fLhtVJy2/1774069732194.png" class="logo-menu">
+
+        <!-- Contactar Agencia — primer botón -->
+        <a href="https://wa.me/50370482075" target="_blank" class="menu-item-wa">
+            <i class="fa-brands fa-whatsapp"></i> Contactar Agencia
+        </a>
+
+        <hr class="menu-separator">
 
         <div class="menu-item" onclick="toggleSub('inicio')">
             <div class="menu-left"><i class="fa-solid fa-house"></i>Inicio</div>▼
@@ -301,10 +411,13 @@
             <div class="menu-left"><i class="fa-solid fa-right-from-bracket"></i>Salir</div>
         </div>
     </div>
+    <!-- ════ FIN SIDEBAR ════ -->
 
+    <!-- ════ INICIO OVERLAY ════ -->
     <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+    <!-- ════ FIN OVERLAY ════ -->
 
-    <!-- ════ NIVEL 1 — MAIN ════ -->
+    <!-- ════ INICIO CONTENIDO — NIVEL 1 (MAIN) ════ -->
     <div id="mainView" class="view">
         <h1 class="view-title">Centro Streamer</h1>
         <p class="view-sub">Guía de funciones principales</p>
@@ -330,8 +443,9 @@
         <div class="pagination" id="mainPag">1 / 10</div>
         <div class="action-area" id="mainActions"></div>
     </div>
+    <!-- ════ FIN CONTENIDO — NIVEL 1 (MAIN) ════ -->
 
-    <!-- ════ NIVEL 2 — SUBVIEW ════ -->
+    <!-- ════ INICIO CONTENIDO — NIVEL 2 (SUBVIEW) ════ -->
     <div id="subView" class="view">
         <h1 class="view-title" id="subTitle"></h1>
         <div class="img-desc" id="subParentDesc" style="display:none; color:#ffd700; font-style:italic;"></div>
@@ -347,8 +461,9 @@
         <div class="action-area" id="subActions"></div>
         <button class="btn-link" onclick="goMain(mainFromSub)">✕ Volver al menú principal</button>
     </div>
+    <!-- ════ FIN CONTENIDO — NIVEL 2 (SUBVIEW) ════ -->
 
-    <!-- ════ NIVEL 3 — INNERVIEW ════ -->
+    <!-- ════ INICIO CONTENIDO — NIVEL 3 (INNERVIEW) ════ -->
     <div id="innerView" class="view">
         <h1 class="view-title" id="innerTitle"></h1>
         <div class="img-desc" id="innerParentDesc" style="display:none; color:#ffd700; font-style:italic;"></div>
@@ -364,45 +479,115 @@
         <div class="action-area" id="innerActions"></div>
         <button class="btn-link" onclick="closeInner()">✕ Volver al menú principal</button>
     </div>
+    <!-- ════ FIN CONTENIDO — NIVEL 3 (INNERVIEW) ════ -->
 
 </div><!-- /mainContent -->
+<!-- ════════════════════════════════════════════
+     ✅ EDITABLE — FIN CONTENIDO PRINCIPAL
+════════════════════════════════════════════ -->
 
+<!-- ════════════════════════════════════════════
+     ❌ NO TOCAR — INICIO SCRIPTS
+════════════════════════════════════════════ -->
 <script>
-// ═══════════════════════════════════════
-//  LOGIN — patrón global del sistema
-// ═══════════════════════════════════════
-const PASSWORD = 'fairy2025';
+
+// =============================
+// 🔐 INICIO CONTROL DE ACCESO POR ID
+// 👉 Agrega o elimina usuarias aquí
+// =============================
+
+// ⚠️ IMPORTANTE:
+// ✔ Cada objeto va separado por coma ","
+// ✔ EL ÚLTIMO elemento NO debe llevar coma
+// ✔ Si agregas uno nuevo, debes poner coma al anterior
+
+const USUARIOS = [
+  {
+    id: "8249303152",
+    nombre: "Daniela",
+    apellido: "Magaña"
+  },
+  {
+    id: "890710327",
+    nombre: "Heidi",
+    apellido: "Trujillo"
+  }
+  /*
+  ,
+  {
+    id: "123456789",
+    nombre: "Nombre",
+    apellido: "Apellido"
+  }
+  */
+];
+
+// =============================
+// 🔐 FIN CONTROL DE ACCESO POR ID
+// =============================
+
 const DURACION = 3 * 60 * 60 * 1000; // 3 horas
 
+// ─────────────────────────────────────────
+//  BIENVENIDA — toast pantalla completa
+// ─────────────────────────────────────────
+function showWelcomeToast(nombre) {
+    const toast = document.getElementById("welcomeToast");
+    document.getElementById("welcomeText").textContent = nombre;
+    toast.style.display = "flex";
+    // Desvanece a los 2.5s, y se oculta completamente a los 3.3s
+    setTimeout(() => toast.classList.add("fadeout"), 2500);
+    setTimeout(() => { toast.style.display = "none"; toast.classList.remove("fadeout"); }, 3300);
+}
+
+// ─────────────────────────────────────────
+//  LOGIN
+// ─────────────────────────────────────────
 function checkPassword() {
-    if (document.getElementById('passInput').value === PASSWORD) {
-        localStorage.setItem("fairyAccess", "true");
-        localStorage.setItem("fairyTime", Date.now());
-        document.getElementById("passwordModal").style.display = "none";
-        document.getElementById("mainContent").style.display = "block";
-        initApp();
+    const input   = document.getElementById('passInput').value.trim();
+    const usuario = USUARIOS.find(u => u.id === input);
+
+    if (usuario) {
+        const bienvenida = `Hola ${usuario.nombre} ${usuario.apellido} 👋`;
+        localStorage.setItem("fairyAccess",  "true");
+        localStorage.setItem("fairyTime",    Date.now());
+        localStorage.setItem("fairyNombre",  bienvenida);
+
+        document.getElementById("loginError").style.display       = "none";
+        document.getElementById("btnContactoModal").style.display = "none";
+        document.getElementById("passwordModal").style.display    = "none";
+        window.location.href = "zona-streamer.html";
     } else {
-        alert("Contraseña incorrecta");
+        document.getElementById("loginError").style.display       = "block";
+        document.getElementById("btnContactoModal").style.display = "block";
     }
 }
 
+// ─────────────────────────────────────────
+//  CHECK SESSION
+// ─────────────────────────────────────────
 function checkSession() {
     const access = localStorage.getItem("fairyAccess");
     const time   = localStorage.getItem("fairyTime");
+    const nombre = localStorage.getItem("fairyNombre");
 
     if (!access || !time || (Date.now() - parseInt(time) > DURACION)) {
         localStorage.clear();
-        document.getElementById("passwordModal").style.display = "flex";
+        window.location.href = "zona-streamer.html";
     } else {
         document.getElementById("passwordModal").style.display = "none";
-        document.getElementById("mainContent").style.display = "block";
+        document.getElementById("mainContent").style.display   = "block";
         initApp();
+        if (nombre) showWelcomeToast(nombre);
     }
 }
 
+// ─────────────────────────────────────────
+//  LOGOUT
+// ─────────────────────────────────────────
 function logout() {
     localStorage.clear();
-    location.reload();
+    window.location.href = "zona-streamer.html";
 }
 
 // Verificar expiración cada minuto
@@ -411,7 +596,7 @@ setInterval(() => {
     const time   = localStorage.getItem("fairyTime");
     if (!access || !time || (Date.now() - parseInt(time) > DURACION)) {
         localStorage.clear();
-        location.reload();
+        window.location.href = "zona-streamer.html";
     }
 }, 60000);
 
@@ -488,7 +673,7 @@ const SUBVIEWS = {
             "https://i.postimg.cc/W3gLZdjJ/4-1-1.png",
             "https://i.postimg.cc/xCMDmXYz/4-1-2.png",
             "https://i.postimg.cc/tTWQ6syn/4-1-3.png",
-              "https://i.postimg.cc/s2SGMJBP/4-1-4.png",
+            "https://i.postimg.cc/s2SGMJBP/4-1-4.png",
             "https://i.postimg.cc/hGxQX0J1/4-1-5.png",
             "https://i.postimg.cc/s2SGMJBp/4-2.png",
             "https://i.postimg.cc/zfWHykLT/4-3.png",
@@ -844,5 +1029,8 @@ function initApp() {
     renderMainBtns(0);
 }
 </script>
+<!-- ════════════════════════════════════════════
+     ❌ NO TOCAR — FIN SCRIPTS
+════════════════════════════════════════════ -->
 </body>
 </html>
