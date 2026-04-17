@@ -555,7 +555,7 @@ body {
         </div>
       </div>
 
-          <!-- SLIDE 17 — FORMULARIO ARGENTINA -->
+  <!-- SLIDE 17 — FORMULARIO ARGENTINA -->
       <div class="slide">
         <div class="card-impact">
           <h3>Argentina 🇦🇷</h3>
@@ -768,17 +768,21 @@ function toggleSub(id) {
 let index    = 0;
 const slidesEl = document.getElementById("slides");
 let total    = 0;
+let animando = false;
 
 function actualizarContador() {
   document.getElementById("contador").textContent = `${index + 1} / ${total}`;
 }
 
 function mover(dir) {
+  if (animando) return;
   index += dir;
   if (index < 0) index = 0;
   if (index >= total) index = total - 1;
-  slidesEl.style.transform = `translateX(-${index * 100}%)`;
+  animando = true;
+  slidesEl.style.transform = `translateX(-${index * 100}vw)`;
   actualizarContador();
+  setTimeout(() => { animando = false; }, 550);
 }
 
 </script>
