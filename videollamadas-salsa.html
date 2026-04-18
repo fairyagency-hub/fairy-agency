@@ -143,6 +143,7 @@ body {
   cursor: pointer; padding-bottom: 8px; font-size: 19px;
   color: #555; transition: 0.3s; font-weight: bold;
 }
+.tab.active { color: #ffd700; border-bottom: 3px solid #ffd700; }
 
 .subtabs { display: flex; justify-content: center; gap: 12px; margin-top: 25px; }
 .subtab {
@@ -164,6 +165,22 @@ body {
   min-width: 100vw; width: 100vw; height: 100%;
   display: flex; justify-content: center; align-items: center;
   flex-shrink: 0; position: relative;
+}
+
+/* ══════════════════════════════════════
+   CONTADOR
+══════════════════════════════════════ */
+.contador {
+  position: absolute;
+  bottom: 14px;
+  width: 100%;
+  text-align: center;
+  font-size: 13px;
+  font-weight: bold;
+  color: #ffd700;
+  letter-spacing: 2px;
+  z-index: 10;
+  font-family: 'Inter', sans-serif;
 }
 
 /* ══════════════════════════════════════
@@ -352,7 +369,6 @@ body {
   <section id="contenido">
     <div class="tabs">
       <div class="tab active" id="t-video" onclick="showTab('video')">Videollamadas</div>
-      <div class="tab"        id="t-calif" onclick="showTab('calif')">Calificación</div>
       <div class="tab"        id="t-algo"  onclick="showTab('algo')">Algoritmo</div>
     </div>
 
@@ -374,6 +390,7 @@ body {
           <div class="slide"><div class="card-impact"><h3>Monetización</h3><p>En las llamadas públicas también se pueden recibir regalos por parte de los usuarios.<br><br>Esto aumenta directamente las ganancias generadas durante la llamada.</p></div></div>
           <div class="slide"><img src="https://i.postimg.cc/7hxLsbQt/Pública_vs_privada.jpg" class="img-full" loading="lazy" decoding="async"></div>
         </div>
+        <div class="contador" id="contador-publica"></div>
       </div>
     </div>
 
@@ -390,24 +407,7 @@ body {
           <div class="slide"><div class="card-impact"><h3>Rendimiento</h3><p>Entre más tiempo duren las llamadas y mayor sea la generación de monedas, mejor será tu posicionamiento dentro del algoritmo de la plataforma.</p></div></div>
           <div class="slide"><img src="https://i.postimg.cc/7hxLsbQt/Pública_vs_privada.jpg" class="img-full" loading="lazy" decoding="async"></div>
         </div>
-      </div>
-    </div>
-
-    <!-- CALIFICACIÓN -->
-    <div id="section-calif" class="content-area" style="display:none;">
-      <div class="slider-container">
-        <div class="arrow left"  onclick="moveSlider('calif', -1)">❮</div>
-        <div class="arrow right" onclick="moveSlider('calif',  1)">❯</div>
-        <div class="slides" id="slides-calif">
-          <div class="slide"><img src="https://i.postimg.cc/5tjgbg7J/Pagina-1.jpg"                           class="img-full" loading="lazy" decoding="async"></div>
-          <div class="slide"><img src="https://i.postimg.cc/0NrnPnWR/Pagina-2.jpg"                           class="img-full" loading="lazy" decoding="async"></div>
-          <div class="slide"><img src="https://i.postimg.cc/rpzjMjnc/Pagina-3.jpg"                           class="img-full" loading="lazy" decoding="async"></div>
-          <div class="slide"><img src="https://i.postimg.cc/K80f6wNv/Screenshot-20260406-120523-Drive.jpg"   class="img-full" loading="lazy" decoding="async"></div>
-          <div class="slide"><img src="https://i.postimg.cc/HLjzdzZp/Screenshot-20260406-120530-Drive.jpg"   class="img-full" loading="lazy" decoding="async"></div>
-          <div class="slide"><img src="https://i.postimg.cc/PqNyTy3X/Screenshot-20260406-120537-Drive.jpg"   class="img-full" loading="lazy" decoding="async"></div>
-          <div class="slide"><img src="https://i.postimg.cc/Gp9KdK7h/Screenshot-20260406-120548-Drive.jpg"   class="img-full" loading="lazy" decoding="async"></div>
-          <div class="slide"><img src="https://i.postimg.cc/LshD2DC8/Screenshot-20260406-120556-Drive-2.jpg" class="img-full" loading="lazy" decoding="async"></div>
-        </div>
+        <div class="contador" id="contador-privada"></div>
       </div>
     </div>
 
@@ -420,12 +420,14 @@ body {
           <div class="slide"><div class="card-impact"><h3>Funcionamiento</h3><p>Salsa utiliza múltiples métricas para posicionar a las streamers dentro de la plataforma.</p></div></div>
           <div class="slide"><div class="card-impact"><h3>Conversión</h3><p>La tasa de conversión en Match es una de las métricas más importantes.<br><br>Entre más usuarios conviertas a llamadas, mejor será tu posicionamiento.</p></div></div>
           <div class="slide"><div class="card-impact"><h3>Retención</h3><p>La retención en llamadas también influye directamente.<br><br>Llamadas más largas hacen que la app te envíe usuarios más conversacionales.</p></div></div>
-          <div class="slide"><div class="card-impact"><h3>Ingresos</h3><p>La generación de monedas es clave.<br><br>Entre más dinero generes, mayor será tu visibilidad dentro de la plataforma.</p></div></div>
+          <div class="slide"><div class="card-impact"><h3>Ingresos</h3><p>La generación de monedas es la métrica más importante del algoritmo.<br><br>Entre más monedas generes, mayor será tu visibilidad y posicionamiento dentro de la plataforma. Este es el factor principal que Salsa mide para destacarte.</p></div></div>
           <div class="slide"><div class="card-impact"><h3>Visibilidad</h3><p>Un buen rendimiento puede posicionarte en rankings y secciones destacadas.</p></div></div>
-             <div class="slide"><div class="card-impact"><h3>Constancia</h3><p>La constancia en los días de conexión influye directamente.<br><br>Entre más días te conectes, mejor será tu algoritmo.</p></div></div>
+          <div class="slide"><div class="card-impact"><h3>Constancia</h3><p>La constancia en los días de conexión influye directamente.<br><br>Entre más días te conectes, mejor será tu algoritmo.</p></div></div>
         </div>
+        <div class="contador" id="contador-algo"></div>
       </div>
     </div>
+
   </section>
 
 </div><!-- /mainContent -->
@@ -441,7 +443,6 @@ body {
 
 // =============================
 // 🔐 INICIO CONTROL DE ACCESO POR ID
-// 👉 Agrega o elimina usuarias aquí
 // =============================
 const USUARIOS = [
   { id: "8249303152", nombre: "Daniela", apellido: "Magaña" },
@@ -477,11 +478,12 @@ function checkPassword() {
 }
 
 // ─────────────────────────────────────────
-//  MOSTRAR CONTENIDO — sesión ya validada en <head>
+//  MOSTRAR CONTENIDO
 // ─────────────────────────────────────────
 document.addEventListener("DOMContentLoaded", function() {
   document.getElementById("passwordModal").style.display = "none";
   document.getElementById("mainContent").style.display   = "block";
+  iniciarContadores();
 });
 
 // ─────────────────────────────────────────
@@ -508,17 +510,38 @@ function toggleSub(id) {
 }
 
 // ─────────────────────────────────────────
+//  CONTADORES
+// ─────────────────────────────────────────
+const totales = {};
+
+function iniciarContadores() {
+  ['publica', 'privada', 'algo'].forEach(function(s) {
+    const container = document.getElementById('slides-' + s);
+    if (container) {
+      totales[s] = container.children.length;
+      actualizarContador(s);
+    }
+  });
+}
+
+function actualizarContador(section) {
+  const el = document.getElementById('contador-' + section);
+  if (el) el.textContent = (indices[section] + 1) + ' / ' + totales[section];
+}
+
+// ─────────────────────────────────────────
 //  SLIDERS
 // ─────────────────────────────────────────
-let indices = { publica: 0, privada: 0, calif: 0, algo: 0 };
+let indices = { publica: 0, privada: 0, algo: 0 };
 
 function moveSlider(section, direction) {
-  const container = document.getElementById(`slides-${section}`);
+  const container = document.getElementById('slides-' + section);
   const total = container.children.length;
   indices[section] += direction;
   if (indices[section] < 0) indices[section] = 0;
   if (indices[section] >= total) indices[section] = total - 1;
-  container.style.transform = `translateX(-${indices[section] * 100}vw)`;
+  container.style.transform = 'translateX(-' + (indices[section] * 100) + 'vw)';
+  actualizarContador(section);
 }
 
 // ─────────────────────────────────────────
@@ -533,9 +556,6 @@ function showTab(tab) {
     document.getElementById('t-video').classList.add('active');
     document.getElementById('subtabs-video').style.display = 'flex';
     document.getElementById('section-publica').style.display = 'block';
-  } else if (tab === 'calif') {
-    document.getElementById('t-calif').classList.add('active');
-    document.getElementById('section-calif').style.display = 'block';
   } else {
     document.getElementById('t-algo').classList.add('active');
     document.getElementById('section-algo').style.display = 'block';
@@ -543,11 +563,11 @@ function showTab(tab) {
 
   indices.publica = 0;
   indices.privada = 0;
-  indices.calif   = 0;
   indices.algo    = 0;
   document.querySelectorAll('.slides').forEach(s => {
     s.style.transform = 'translateX(0)';
   });
+  ['publica', 'privada', 'algo'].forEach(actualizarContador);
 }
 
 // ─────────────────────────────────────────
