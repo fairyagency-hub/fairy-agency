@@ -411,18 +411,20 @@ body {
       </div>
     </div>
 
-    <!-- ALGORITMO -->
+  <!-- ALGORITMO -->
     <div id="section-algo" class="content-area" style="display:none;">
       <div class="slider-container">
         <div class="arrow left"  onclick="moveSlider('algo', -1)">❮</div>
         <div class="arrow right" onclick="moveSlider('algo',  1)">❯</div>
         <div class="slides" id="slides-algo">
-          <div class="slide"><div class="card-impact"><h3>Funcionamiento</h3><p>Salsa utiliza múltiples métricas para posicionar a las streamers dentro de la plataforma.</p></div></div>
-          <div class="slide"><div class="card-impact"><h3>Conversión</h3><p>La tasa de conversión en Match es una de las métricas más importantes.<br><br>Entre más usuarios conviertas a llamadas, mejor será tu posicionamiento.</p></div></div>
-          <div class="slide"><div class="card-impact"><h3>Retención</h3><p>La retención en llamadas también influye directamente.<br><br>Llamadas más largas hacen que la app te envíe usuarios más conversacionales.</p></div></div>
-          <div class="slide"><div class="card-impact"><h3>Ingresos</h3><p>La generación de monedas es la métrica más importante del algoritmo.<br><br>Entre más monedas generes, mayor será tu visibilidad y posicionamiento dentro de la plataforma. Este es el factor principal que Salsa mide para destacarte.</p></div></div>
-          <div class="slide"><div class="card-impact"><h3>Visibilidad</h3><p>Un buen rendimiento puede posicionarte en rankings y secciones destacadas.</p></div></div>
-          <div class="slide"><div class="card-impact"><h3>Constancia</h3><p>La constancia en los días de conexión influye directamente.<br><br>Entre más días te conectes, mejor será tu algoritmo.</p></div></div>
+          <div class="slide"><div class="card-impact"><h3>¿Qué es el Algoritmo?</h3><p>Seguro has notado que si buscas zapatos en Facebook o TikTok, de pronto todo lo que te sale son anuncios de zapatos. Eso es el algoritmo: un sistema que aprende qué te gusta y te muestra más de eso.<br><br>En Salsa funciona exactamente igual. Tu perfil es como un producto; si el algoritmo nota que pasas muchas horas conectada, que conviertes tus 'Match' en videollamadas y que generas monedas, el sistema dirá: 'Esta streamer es de calidad'. En ese momento, el algoritmo empieza a jugar a tu favor y te pone frente a más usuarios para que ganes más.</p></div></div>
+          <div class="slide"><div class="card-impact"><h3>El Algoritmo no es Suerte</h3><p>Salsa no te posiciona al azar. El sistema utiliza métricas de rendimiento en tiempo real. Tu visibilidad depende de qué tan rentable y activa te vea la aplicación cada día.</p></div></div>
+          <div class="slide"><div class="card-impact"><h3>La Regla de Oro: Monedas e Ingresos</h3><p>La generación de monedas es el factor número uno. Entre más monedas generes, la app te dará más prioridad. Para Salsa, una streamer que factura es una streamer que merece estar en el top.</p></div></div>
+          <div class="slide"><div class="card-impact"><h3>Ranking 24h: Tu Meta Diaria</h3><p>Tu visibilidad depende de tu puesto en el ranking diario.<br><br>Meta:<br><br>- No bajar del puesto 300 o 400<br>- Evitar bajar del 1000<br><br>Si bajas mucho en el ranking, tu visibilidad disminuye y recibirás menos llamadas.</p></div></div>
+          <div class="slide"><div class="card-impact"><h3>Ranking Semanal (Nivel del Algoritmo)</h3><p>El ranking semanal es el que define el nivel de algoritmo en el que la app te posiciona.<br><br>Este nivel influye directamente en tu visibilidad y en los usuarios que recibes.<br><br>👉 Es importante tratar de no bajar del nivel C.</p><img src="https://i.postimg.cc/fkQkcBn1/Nivel-Requerido-(3).png" style="width:100%; border-radius:12px; border:1px solid #222; object-fit:contain; max-height:35vh;" loading="lazy" decoding="async"></div></div>
+          <div class="slide"><div class="card-impact"><h3>El Impulso de Cuenta Nueva</h3><p>Fairy Agency te recuerda: La app te considera 'Nueva' solo los primeros 21 días. Es tu periodo de máxima visibilidad; si no trabajas duro estas tres semanas, recuperar el algoritmo después será mucho más difícil.</p></div></div>
+          <div class="slide"><div class="card-impact"><h3>Conversión y Retención en Match</h3><p>En la Zona Match, la clave es convertir el saludo en llamada. Entre más usuarios acepten hablar contigo y más tiempo logres retenerlos en la videollamada, más usuarios 'conversacionales' (los que gastan) te enviará el sistema.</p></div></div>
+          <div class="slide"><div class="card-impact"><h3>"El Castigo" por No Cerrar Sesión</h3><p>Si dejas la app abierta y no contestas las llamadas que te entran, el sistema bajará tu posicionamiento. Es obligatorio cerrar sesión para que el algoritmo no se dañe cuando no estés disponible.</p></div></div>
         </div>
         <div class="contador" id="contador-algo"></div>
       </div>
@@ -439,22 +441,8 @@ body {
 <!-- ════════════════════════════════════════════
      ❌ NO TOCAR — INICIO SCRIPTS
 ════════════════════════════════════════════ -->
+<script src="ids.js"></script>
 <script>
-
-// =============================
-// 🔐 INICIO CONTROL DE ACCESO POR ID
-// =============================
-const USUARIOS = [
-  { id: "8249303152", nombre: "Daniela", apellido: "Magaña" },
-  { id: "890710327",  nombre: "Heidy",   apellido: "Trujillo" }
-  /*
-  ,
-  { id: "123456789", nombre: "Nombre", apellido: "Apellido" }
-  */
-];
-// =============================
-// 🔐 FIN CONTROL DE ACCESO POR ID
-// =============================
 
 const DURACION = 3 * 60 * 60 * 1000;
 
