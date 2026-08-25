@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Aprende a crecer — Fairy Agency</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+<a href="index.html" class="menu-link"><span class="bars">☰</span> GUÍA FAIRY AGENCY</a>
+<div class="header"><img src="https://i.postimg.cc/fLhtVJy2/1774069732194.png" alt="Fairy Agency" class="logo-main"></div>
+
+<div class="nav-controls">
+  <div class="arrow is-hidden" id="prevBtn">‹</div>
+  <div class="arrow" id="nextBtn">›</div>
+</div>
+
+<div class="slide-page">
+  <div class="main-container">
+    <div class="slider-track" id="sliderTrack"></div>
+  </div>
+</div>
+
+<div class="page-indicator" id="pageIndicator">1 / 5</div>
+
+<div class="transition-view" id="transitionView">
+  <div class="transition-box">
+    <div class="transition-eyebrow">Ahora que conoces algunos factores que pueden ayudarte a crecer…</div>
+    <div class="transition-lead">Conoce qué recibes al trabajar con Fairy Agency.</div>
+    <h2 class="transition-title">Conoce Fairy Agency</h2>
+    <a href="seccion-fairy-agency.html" class="btn-final">Conocer Fairy Agency →</a>
+    <div><a href="index.html" class="transition-back">← Volver a la guía</a></div>
+  </div>
+</div>
+
+<script src="slides-data.js"></script>
+<script src="section.js"></script>
+<script>
+  initSection({
+    ids: [5, 9, 10, 18, 24],
+    sectionLabel: "APRENDE A CRECER",
+    transitionBtn: "Conocer Fairy Agency \u2192"
+  });
+</script>
+</body>
+</html>
